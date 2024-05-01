@@ -1,8 +1,8 @@
-const HeroImage = ({ src, width }) => {
+const HeroImage = ({ src}) => {
   
   return (
     <div className={`image pb-10`}>
-      <img src={src} alt='house-image' style={{ width: `${width}%` }} />
+      <img src={src} alt='house-image'  />
     </div>
   );
 };

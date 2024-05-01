@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Achievements from "./Acheivements"
 import HeroImage from "./HeroImage";
+import SearchBar from "./SearchBar";
 /* eslint-disable react/no-unescaped-entities */
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -12,11 +13,11 @@ const Hero = () => {
     },
     {
       src: '/house2.png',
-      width: 90
+      width: 100
     },
     {
       src: '/house3.png',
-      width: 80
+      width: 100
     }
   ], []);
 
@@ -32,15 +33,16 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+      <div className="mt-10 md:mt-0 md:hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
 
 
-      <main className="z-10 flex items-center pb-12 gap-10">
+      <main className="z-10 flex flex-col md:flex-row items-center hero justify-center pb-12 gap-10">
           <div className="texts flex flex-col gap-10">
             <div className="content flex flex-col gap-5">
                 <h1 className="hero-h font-bold leading-none text-[#0D263B]">Discover A Place You'll Love To Live.</h1>
                 <p className="w-full text-[#7C8893]">Skyline is a real estate soluation that gives you the local scoop about homes.
                 Search confidently with your trusted source of homes for sale or rent.</p>
+                {/* <SearchBar/> */}
             </div>
             <div className="content flex flex-col gap-5">
                 <div className="acheivements flex gap-14">
@@ -50,8 +52,8 @@ const Hero = () => {
                 </div>
             </div>
           </div>
-          <div className="image pb-5 w-[130%]">
-            <HeroImage src={images[currentImageIndex].src} width={images[currentImageIndex].width} />
+          <div className="image md:pt-10 w-full">
+            <HeroImage src={images[currentImageIndex].src} />
           </div>
       </main>
 

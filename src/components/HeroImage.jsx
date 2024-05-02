@@ -1,7 +1,7 @@
 const HeroImage = ({ src}) => {
   
   return (
-    <div className={`image pb-10`}>
+    <div className={`image md:pb-10`}>
       <img src={src} alt='house-image'  />
     </div>
   );

@@ -33,16 +33,16 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="mt-10 md:mt-0 md:hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+      <div className="mt-5 md:mt-0 md:hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
 
 
-      <main className="z-10 flex flex-col md:flex-row items-center hero justify-center pb-12 gap-10">
+      <main className="z-10 flex flex-col md:flex-row items-center md:hero justify-center gap-10 mb-10">
           <div className="texts flex flex-col gap-10">
             <div className="content flex flex-col gap-5">
                 <h1 className="hero-h font-bold leading-none text-[#0D263B]">Discover A Place You'll Love To Live.</h1>
-                <p className="w-full text-[#7C8893]">Skyline is a real estate soluation that gives you the local scoop about homes.
-                Search confidently with your trusted source of homes for sale or rent.</p>
-                {/* <SearchBar/> */}
+                <p className="w-full text-[#7C8893]">Skyline is a real estate solution that gives you the info about homes.
+                Search confidently with your trusted source of homes.</p>
+                <SearchBar/>
             </div>
             <div className="content flex flex-col gap-5">
                 <div className="acheivements flex gap-14">
@@ -52,7 +52,7 @@ const Hero = () => {
                 </div>
             </div>
           </div>
-          <div className="image md:pt-10 w-full">
+          <div className="image w-full">
             <HeroImage src={images[currentImageIndex].src} />
           </div>
       </main>

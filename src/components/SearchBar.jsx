@@ -28,7 +28,7 @@ const SearchBar = () => {
             Rent
           </div>
       </div>
-      <form action="" className="grid grid-cols-2 bg-white rounded-b-xl rounded-r-xl overflow-hidden custom-shadow">
+      <form action="" className="grid md:grid-cols-2 bg-white rounded-b-xl rounded-r-xl overflow-hidden custom-shadow">
         <input type="text" name="location" placeholder="City" className="input" ref={locationInputRef}/>
         <input type="text" name="maxPrice" min={0} max={1000000000} placeholder="Max Price" className="input"/>
         <input type="text" name="minPrice" min={0} max={10000000} placeholder="Min Price" className="input"/>

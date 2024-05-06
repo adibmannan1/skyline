@@ -70,7 +70,7 @@ const Navbar = () => {
                 {
                     links.map(link => <NavLink to={link.link} key={link.name} 
                         className={(e)=> e.isActive? "bg-[#dcecff] w-[90%] mx-auto py-2 px-4 rounded text-[#0d263b] flex gap-3 items-center": 
-                        "bg-[#dcecff6e] w-[90%] mx-auto py-2 px-4 rounded text-[#0d263b] flex gap-3 items-center"} 
+                        "bg-[#dcecff6e] w-[90%] mx-auto py-2 px-4 rounded text-[#0d263b] flex gap-3 items-center"} onClick={menuCloser}
                     >
                         <img src={link.icon} alt="" className="w-5 h-5"/>
                         <h1>{link.name}</h1>

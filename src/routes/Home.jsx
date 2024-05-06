@@ -33,10 +33,10 @@ const Home = () => {
 
   return (
     <>
-      <div className="mt-5 md:mt-0 md:hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+      <div className="mt-5 md:mt-0 max-sm:h-full hero w-full dark:bg-black bg-transparent  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
 
 
-      <main className="z-10 flex flex-col md:flex-row items-center md:hero justify-center gap-10 mb-10">
+      <main className="z-10 flex flex-col md:flex-row items-center md:hero justify-center gap-10 mb-10 md:gap-32">
           <div className="texts flex flex-col gap-10">
             <div className="content flex flex-col gap-5">
                 <h1 className="hero-h font-bold leading-none text-[#0D263B]">Discover A Place You'll Love To Live.</h1>
@@ -52,7 +52,7 @@ const Home = () => {
                 </div>
             </div>
           </div>
-          <div className="image w-full">
+          <div className="image w-[80%]">
             <HeroImage src={images[currentImageIndex].src} />
           </div>
       </main>

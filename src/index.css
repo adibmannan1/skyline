@@ -43,6 +43,18 @@ a, li{
 input:focus {
     background-color: #e7f3ff;
   }
-  input:focus::placeholder {
+input:focus::placeholder {
     color: #0061e0; /* Placeholder text color when input is focused */
   }
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.custom-scroll {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  }
+  
+  /* Optional: Define scrollbar track styles for Firefox */
+  .custom-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and newer Edge */
+  }
+  
+

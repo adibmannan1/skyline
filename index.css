@@ -9,7 +9,6 @@
 }
 body{
     font-family: 'Montserrat', sans-serif;
-    /* overflow: hidden; */
 }
 a, li{
     text-decoration: none;
@@ -46,4 +45,20 @@ input:focus {
 input:focus::placeholder {
     color: #0061e0; /* Placeholder text color when input is focused */
 }
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.custom-scroll {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+    width: 0 !important;
+  }
+  
+  /* Optional: Define scrollbar track styles for Firefox */
+  .custom-scroll::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+  }
+  .bg{
+    background-color: #3980c6;
+  }
+  
 

@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom";
+
 const List = ({ property }) => {
-  const { title, img, bedroom, bathroom, price, address } = property;
+  const { id, title, img, bedroom, bathroom, price, address } = property;
 
   return (
     <div className="bg-white rounded-lg p-2">
-      <img src={img} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" />
+      <Link to={`/${id}`}><img src={img} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
       <div className="p-4">
-        <h2 className="font-bold text-lg mb-2 cursor-pointer">{title}</h2>
+        <Link to={`/${id}`}>
+          <h2 className="font-bold text-lg mb-2 cursor-pointer">{title}</h2>
+        </Link>
           <p className="text-gray-500 mb-2 font-medium">{address}</p>
         <div className="flex flex-col gap-2 text-gray-600 text-sm mb-2">
           <div className="mr-2 flex items-center gap-2">
@@ -14,7 +18,7 @@ const List = ({ property }) => {
           </div>
           <div className="mr-2 flex items-center gap-2">
             <img src="/bath.png" alt="" className="w-7 h-7 bg-[#e4f0ff] p-1 rounded"/>
-            <p>{bedroom} bathrooms</p>
+            <p>{bathroom} bathrooms</p>
           </div>
         </div>
         <div className="flex justify-between items-center">

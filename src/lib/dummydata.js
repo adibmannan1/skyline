@@ -7,7 +7,7 @@ export const listData = [
     bathroom: 1,
     price: 1000,
     address: "456 Park Avenue, London",
-    latitude: 51.5074,
+    latitude: 53,
     longitude: -0.1278,
     category: "house",
     amenities: ["furnished", "pets allowed"]
@@ -59,7 +59,7 @@ export const listData = [
     bathroom: 2,
     price: 1500,
     address: "567 Victoria Road, London",
-    latitude: 53.4084,
+    latitude: 52.5,
     longitude: -2.9916,
     category: "house",
     amenities: ["furnished"]

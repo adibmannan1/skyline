@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 const Filter = ({ menuCloser }) => {
-  const propertyTypes = ['apartment', 'house', 'room', 'vila'];
-  const amenities = ['furnished', 'utilities', 'pets allowed', 'extra security'];
+  const propertyTypes = ['apartment', 'house', 'room'];
+  const amenities = ['furnished', 'utilities', 'pets allowed'];
 
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -19,10 +19,9 @@ const Filter = ({ menuCloser }) => {
     }
   };
 
-  const bedroomOptions = ['1', '2', '3', '4+'];
 
   return (
-    <div className="px-4 py-5 h-full flex flex-col justify-between w-full">
+    <div className="pr-4 py-5 h-screen sm:h-full flex flex-col justify-between w-full bg-[#F4F9FF]">
       {/* Categories Section */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
@@ -45,10 +44,15 @@ const Filter = ({ menuCloser }) => {
           </button>
         </div>
         <ul>
-          {propertyTypes.map((property) => (
+          {propertyTypes.map(property => (
             <li key={property} className="py-1">
-              <label className="flex items-center capitalize">
-                <input type="checkbox" className="h-5 w-5 mr-2" />
+              <label htmlFor={property} className="flex items-center capitalize cursor-pointer">
+                <input
+                  type="checkbox"
+                  id={property}
+                  name={property}
+                  className="h-5 w-5 mr-2 cursor-pointer"
+                />
                 {property}
               </label>
             </li>
@@ -56,13 +60,25 @@ const Filter = ({ menuCloser }) => {
         </ul>
       </div>
 
+       {/* Type Filter */}
+       <div className="mb-4 flex flex-col">
+        <label htmlFor="type" className="text-lg font-semibold mb-2">
+          Type
+        </label>
+        <select name="type" id="type" className='w-full p-2 focus:outline-none border border-[#b4c6df] bg-transparent font-medium text-[#7C8893]'>
+          <option value="buy">Buy</option>
+          <option value="rent">Rent</option>
+        </select>
+      </div>
+
        {/* Bedroom Filter */}
        <div className="mb-4">
-        <label htmlFor="bedroomInput" className="text-lg font-semibold mb-2">
+        <label htmlFor="bedroomInput" className="text-lg font-semibold mb-2 cursor-pointer">
           Bedrooms
         </label>
         <input
           type="number"
+          name='bedroomInput'
           id="bedroomInput"
           placeholder="No of bedrooms"
           className="border w-full p-2 focus:outline-none border-[#b4c6df]"
@@ -73,18 +89,18 @@ const Filter = ({ menuCloser }) => {
       {/* Price Range Section */}
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Price Range</h2>
-        <div className="flex flex-col">
+        <div className="flex gap-2">
           <input
             type="number"
             placeholder="Min"
-            className="border p-2 focus:outline-none border-[#b4c6df] mb-2"
+            className="border p-2 focus:outline-none border-[#b4c6df] w-full"
             value={minPrice}
             onChange={e => setMinPrice(e.target.value)}
           />
           <input
             type="number"
             placeholder="Max"
-            className="border p-2 focus:outline-none border-[#b4c6df]"
+            className="border p-2 focus:outline-none border-[#b4c6df] w-full"
             value={maxPrice}
             onChange={e => setMaxPrice(e.target.value)}
           />
@@ -98,7 +114,7 @@ const Filter = ({ menuCloser }) => {
           {amenities.map((amenity, index) => (
             <li key={index} className="py-1">
               <label className="flex items-center capitalize">
-                <input type="checkbox" className="mr-2 h-5 w-5" />
+                <input type="checkbox" className="mr-2 h-5 w-5 cursor-pointer" />
                 {amenity}
               </label>
             </li>

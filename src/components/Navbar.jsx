@@ -37,9 +37,7 @@ const Navbar = () => {
         <div className="links hidden sm:flex gap-3 xl:gap-0 lg:w-[30%] justify-between font-semibold text-sm md:text-base">
             {
                 links.map(link => <NavLink to={link.link} key={link.name} 
-                    // className="link text-[#7C8893] hover:text-black hover:-translate-y-1 ease-in-out duration-200"
-                    
-                    className={(e)=> e.isActive? "link text-[#0D263B] hover:text-black hover:-translate-y-1 ease-in-out duration-200": 
+                    className={e=> e.isActive? "link text-[#0D263B] hover:text-black hover:-translate-y-1 ease-in-out duration-200": 
                         "link text-[#7C8893] hover:text-black hover:-translate-y-1 ease-in-out duration-200"} 
                     
                     >{link.name}</NavLink>)
@@ -49,7 +47,7 @@ const Navbar = () => {
             <button className="text-[#0061E0] hover:text-black ease-in-out duration-200">Log In</button>
             <button className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200">Sign Up</button>
         </div>
-        <div className="menuIcon sm:hidden w-[30px] cursor-pointer" onClick={menuOpener}>
+        <div className="menuIcon sm:hidden w-[30px] cursor-pointer" onClick={() => menuOpener()}>
             <img src="/menu.png" alt="menu icon" />
         </div>
         <div className={`menu absolute top-0 z-20 bg-[#0d263bd2] w-full text-[#F4F9FF] h-screen sm:hidden ${active ? "right-0" : "right-[-100%]"} custom-transition backdrop-blur-lg`}>

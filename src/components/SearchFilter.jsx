@@ -14,7 +14,7 @@ const SearchFilter = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-4">
       <input
         type="text"
         value={query}
@@ -24,9 +24,9 @@ const SearchFilter = ({ onSearch }) => {
       />
       <button
         onClick={handleSearch}
-        className="ml-2 p-2 bg-[#0061E0] text-white rounded-md"
+        className="p-2 bg-[#0061E0] text-white rounded-md"
       >
-        <img src="/search-white.png" alt="" className='w-5'/>
+        <img src="/search-white.png" alt="" className='w-6'/>
       </button>
     </div>
   );

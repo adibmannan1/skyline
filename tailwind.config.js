@@ -12,7 +12,10 @@ export const content = [
 ];
 export const darkMode = "class";
 export const theme = {
-  // rest of the code
+  screens: {
+    'xs': '475px',
+    ...defaultTheme.screens,
+  },
 };
 export const plugins = [
   addVariablesForColors,

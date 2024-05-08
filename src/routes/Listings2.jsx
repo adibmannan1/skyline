@@ -5,7 +5,7 @@ import {listData} from '../lib/dummydata'
 import '../index.css'
 import SearchFilter from '../components/SearchFilter'
 import Map from '../components/Map'
-const ListPage = () => {
+const Listings2 = () => {
   const [open, setOpen] = useState(false)
 
   const menuOpener = () => setOpen(true)
@@ -17,7 +17,7 @@ const ListPage = () => {
         <Filter menuCloser={menuCloser}/>
       </div>
 
-      <div className={`lists w-[135%] py-3`}>
+      <div className={`lists w-[130%] py-3`}>
         <div className='md:px-2 flex gap-4'>
           <div className="menuIcon md:hidden w-[40px] cursor-pointer bg-gray-200 p-2 rounded border-2 border-gray-300" onClick={menuOpener}>
               <img src="/filter.png" alt="filter icon" />
@@ -36,15 +36,8 @@ const ListPage = () => {
           </div>
         </div>
       </div>
-
-        <div className='w-full py-3 max-md:pl-3 pl-2 hidden xs:block'>
-          <div className='h-full rounded-lg overflow-hidden'>
-            <Map data={listData}/>
-          </div>
-        </div>
-
     </div>
   )
 }
 
-export default ListPage
+export default Listings2

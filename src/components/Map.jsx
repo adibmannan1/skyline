@@ -32,7 +32,7 @@ const Map = ({ data }) => {
                           <>
                             <img src={property.img} alt="property thumbnail" className='rounded'/>
                             <div className="textContainer">
-                              <Link to={`/${property.id}`} className='font-bold'>{property.title}</Link>
+                              <Link to={`list/${property.id}`} className='font-bold'>{property.title}</Link>
                               <p>{`${property.bedroom} bed, ${property.bathroom} bath`}</p>
                               <p className='font-bold'>€{property.price}</p>
                             </div>

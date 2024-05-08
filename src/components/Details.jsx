@@ -1,17 +1,16 @@
 import { useState } from "react";
 
-const Details = () => {
+const Details = ({property}) => {
     const menuItems = [
-        { id: 'overview', label: 'Overview', content: 'This is the overview of the product.' },
-        { id: 'price', label: 'Price', content: 'This is the price information of the product.' },
-        { id: 'details', label: 'Details', content: 'These are the detailed specifications of the product.' }
+        { id: 'overview', content: property.overview },
+        { id: 'price', content: property.price },
+        { id: 'details', content: property.size }
       ];
     
       const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0]);
     
       const handleMenuItemClick = (menuItem) => {
         setActiveMenuItem(menuItem);
-        console.log(activeMenuItem)
       };
 
   return (
@@ -24,7 +23,7 @@ const Details = () => {
             className={`menu-item ${activeMenuItem.id === menuItem.id ? 'active' : ''}`}
             onClick={() => handleMenuItemClick(menuItem)}
           >
-            {menuItem.label}
+            <div className="capitalize">{menuItem.id}</div>
           </button>
         ))}
       </div>
@@ -33,7 +32,6 @@ const Details = () => {
       <div className="bg-white p-4 rounded shadow">
 
           <div key={activeMenuItem.id}>
-            <h2>{activeMenuItem.label}</h2>
             <p>{activeMenuItem.content}</p>
           </div>
 

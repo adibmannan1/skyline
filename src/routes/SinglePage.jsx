@@ -3,17 +3,20 @@ import Details from '../components/Details';
 
 import {listData} from '../lib/dummydata'
 import Map from '../components/Map';
+import { useParams } from 'react-router-dom';
+import ImageGrid from '../components/ImageGrid';
 const SinglePage = () => {
+  const {id} = useParams();
  
   return (
-    <div className='flex hero mx-auto justify-between'>
-      
-      <div className='property-contents w-1/2'>
-        <Details/>
+    <div className='flex hero justify-between py-3 gap-16'>
+      <div className='property-contents w-[110%]'>
+        <ImageGrid img={listData[(id-1)].img} img2={listData[(id-1)].img2} img3={listData[(id-1)].img3} img4={listData[(id-1)].img4}/>
+        <Details property={listData[(id-1)]}/>
       </div>
 
-      <div className='map flex rounded-lg py-3 ml-3 overflow-hidden'>
-        <div className='w-1/2 rounded-lg overflow-hidden'>
+      <div className='map flex'>
+        <div className='w-full rounded-lg overflow-hidden'>
           <Map data={listData}/>
         </div>
       </div>
@@ -22,21 +25,3 @@ const SinglePage = () => {
 }
 
 export default SinglePage
-
-
-// const SinglePage = () => {
-
-//   return (
-//     <div className='flex'>
-//       <div className='property-contents w-1/2'>
-
-//       <Details/>
-//       </div>
-//       <div className='map w-1/2 h-full bg-green-500'>
-//         <Map data={listData}/>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SinglePage;

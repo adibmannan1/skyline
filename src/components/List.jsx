@@ -5,9 +5,9 @@ const List = ({ property }) => {
 
   return (
     <div className="bg-white rounded-lg p-2">
-      <Link to={`/${id}`}><img src={img} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
+      <Link to={`/list/${id}`}><img src={img} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
       <div className="p-4">
-        <Link to={`/${id}`}>
+        <Link to={`/list/${id}`}>
           <h2 className="font-bold text-lg mb-2 cursor-pointer">{title}</h2>
         </Link>
           <p className="text-gray-500 mb-2 font-medium">{address}</p>

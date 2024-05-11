@@ -4,6 +4,7 @@ import Home from "./routes/Home"
 import ListPage from "./routes/Listings.jsx";
 import SinglePage from "./routes/SinglePage.jsx";
 import './index.css'
+import Profile from "./routes/Profile.jsx";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />}/>
             <Route path="/list/:id" element={<SinglePage />}/>
             <Route path="/list" element={<ListPage />}/>
+            <Route path="/profile" element={<Profile />}/>
           </Routes>
         </div>
       </div>

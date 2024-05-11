@@ -1,7 +1,9 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
+import { userData } from "../lib/dummydata"
 
 const Navbar = () => {
+    const user = true
     const [active, setActive] = useState(false)
     const links = [
         {
@@ -44,13 +46,22 @@ const Navbar = () => {
             }
         </div>
         <div className="authorization sm:flex gap-5 text-xs md:text-sm hidden">
-            <button className="text-[#0061E0] hover:text-black ease-in-out duration-200">Log In</button>
-            <button className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200">Sign Up</button>
+            {user? 
+                <Link to={'/profile'} className="user flex items-center gap-5 relative">
+                    <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">3</div>
+                    <img src={userData[0].img} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
+                    <h1 className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200 cursor-pointer">{userData[0].name}</h1>
+                </Link>:
+                <>
+                    <button className="text-[#0061E0] hover:text-black ease-in-out duration-200">Log In</button>
+                    <button className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200">Sign Up</button>
+                </>
+            }
         </div>
         <div className="menuIcon sm:hidden w-[30px] cursor-pointer" onClick={() => menuOpener()}>
             <img src="/menu.png" alt="menu icon" />
         </div>
-        <div className={`menu absolute top-0 z-20 bg-[#0d263bd2] w-full text-[#F4F9FF] h-screen sm:hidden ${active ? "right-0" : "right-[-100%]"} custom-transition backdrop-blur-lg`}>
+        <div className={`mobile-menu absolute top-0 z-20 bg-[#0d263bd2] w-full text-[#F4F9FF] h-screen sm:hidden ${active ? "right-0" : "right-[-100%]"} custom-transition backdrop-blur-lg`}>
            
             <div className="w-[90%] mx-auto flex gap-5 items-center mt-5">
                 <NavLink to="/" className="logo items-center gap-3 flex mr-2">

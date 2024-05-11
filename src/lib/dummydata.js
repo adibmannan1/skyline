@@ -3,7 +3,7 @@ export const listData = [
     id: 1,
     title: "A House Next to the Beach",
     img: "https://images.pexels.com/photos/277667/pexels-photo-277667.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    img2: "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    img2: "https://images.pexels.com/photos/245208/pexels-photo-245208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     img3: "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     img4: "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     bedroom: 2,
@@ -15,7 +15,8 @@ export const listData = [
     category: "house",
     amenities: ["furnished", "pets allowed"],
     description: "Charming beachside house offering stunning ocean views and a tranquil atmosphere.",
-    size: 1200
+    size: 1200,
+    userId: 1
   },
   {
     id: 2,
@@ -33,7 +34,8 @@ export const listData = [
     category: "apartment",
     amenities: ["utilities", "pets allowed"],
     description: "Spacious apartment conveniently located near a beautiful park, perfect for nature lovers.",
-    size: 1000
+    size: 1000,
+    userId: 1
   },
   {
     id: 3,
@@ -51,7 +53,8 @@ export const listData = [
     category: "room",
     amenities: ["pets allowed"],
     description: "Cozy room located in the heart of the city, ideal for urban living enthusiasts.",
-    size: 600
+    size: 600,
+    userId: 1
   },
   {
     id: 4,
@@ -69,7 +72,8 @@ export const listData = [
     category: "villa",
     amenities: ["furnished", "utilities", "pets allowed"],
     description: "Comfortable villa situated in a prime location with easy access to amenities.",
-    size: 1800
+    size: 1800,
+    userId: 1
   },
   {
     id: 5,
@@ -87,7 +91,8 @@ export const listData = [
     category: "house",
     amenities: ["furnished"],
     description: "Inviting family home offering spacious interiors and a welcoming atmosphere.",
-    size: 1600
+    size: 1600,
+    userId: 1
   },
   {
     id: 6,
@@ -105,7 +110,8 @@ export const listData = [
     category: "villa",
     amenities: ["pets allowed"],
     description: "Mystical villa with a rich history, ideal for those seeking a unique living experience.",
-    size: 1400
+    size: 1400,
+    userId: 1
   },
   {
     id: 7,
@@ -123,7 +129,8 @@ export const listData = [
     category: "apartment",
     amenities: ["furnished", "pets allowed", "extra security"],
     description: "Modern apartment in a secure complex with convenient access to nearby amenities.",
-    size: 900
+    size: 900,
+    userId: 1
   },
   {
     id: 8,
@@ -141,39 +148,16 @@ export const listData = [
     category: "room",
     amenities: ["furnished", "utilities", "pets allowed"],
     description: "Convenient dormitory-style accommodation with shared living spaces.",
-    size: 700
+    size: 700,
+    userId: 1
   }
 ];
 
-
-
-  
-  export const singlePostData = {
-    id: 1,
-    title: "Beautiful Apartment",
-    price: 1200,
-    images: [
-      "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/1428348/pexels-photo-1428348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    ],
-    bedRooms: 2,
-    bathroom: 1,
-    size: 861,
-    latitude: 51.5074,
-    longitude: -0.1278,
-    city: "London",
-    address: "1234 Broadway St",
-    school: "250m away",
-    bus: "100m away",
-    restaurant: "50m away",
-    description:
-      "Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually",
-  };
   
   export const userData = [{
     id: 1,
     name: "John Doe",
     img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    age: 25,
+    address: "1234 Main St New York, NY 10001",
   }]

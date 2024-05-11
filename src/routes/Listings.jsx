@@ -5,6 +5,7 @@ import {listData} from '../lib/dummydata'
 import '../index.css'
 import SearchFilter from '../components/SearchFilter'
 import Map from '../components/Map'
+import SingleMap from '../components/singleMap'
 const ListPage = () => {
   const [open, setOpen] = useState(false)
 
@@ -39,7 +40,7 @@ const ListPage = () => {
 
         <div className='w-full py-3 max-md:pl-3 pl-2 hidden xs:block'>
           <div className='h-full rounded-lg overflow-hidden'>
-            <Map data={listData}/>
+            <SingleMap item={listData} single={false}/>
           </div>
         </div>
 

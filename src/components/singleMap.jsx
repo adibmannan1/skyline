@@ -4,13 +4,18 @@ import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Map = ({ data }) => {
-    const [position, setPosition] = useState([data[0].latitude, data[0].longitude]);
-    const [zoom, setZoom] = useState(6);
+const SingleMap = ({ item, single }) => {
+    const data = single ? item[0] : item;
+    const [zoom, setZoom] = useState(single ? 10 : 6);
+    const [position, setPosition] = useState([single ? data.latitude : data[0].latitude, single ? data.longitude : data[0].longitude]);
 
     const handleMarkerClick = (latitude, longitude) => {
-      setPosition([latitude, longitude]);
-      setZoom(7.5);
+        if(single){
+          setZoom(10);
+        }else{
+          setZoom(7.5);
+        }
+        setPosition([latitude, longitude]);
     };
 
     return (
@@ -19,6 +24,32 @@ const Map = ({ data }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
+            {
+                single? <div>
+                
+                <Marker
+                    key={data.id}
+                    position={[data.latitude, data.longitude]}
+                    eventHandlers={{
+                        click: () => handleMarkerClick(data.latitude, data.longitude)
+                    }}
+                >
+                    <Popup>
+                        <>
+                        <img src={data.img2} alt="data thumbnail" className='rounded'/>
+                        <div className="textContainer">
+                            <Link to={`list/${data.id}`} className='font-bold'>{data.title}</Link>
+                            <p>{`${data.bedroom} bed, ${data.bathroom} bath`}</p>
+                            <p className='font-bold'>€{data.price}</p>
+                        </div>
+                        </>
+                    </Popup>
+                </Marker>
+
+            </div> : 
+            
+            
             <div>
                 {data.map(property => (
                     <Marker
@@ -41,8 +72,9 @@ const Map = ({ data }) => {
                     </Marker>
                 ))}
             </div>
+            }
         </MapContainer>
     );
 }
 
-export default Map;
+export default SingleMap;

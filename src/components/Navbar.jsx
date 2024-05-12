@@ -4,7 +4,7 @@ import { userData } from "../lib/dummydata"
 
 const Navbar = () => {
     const user = true
-    const [active, setActive] = useState(false)
+    const [open, setOpen] = useState(false)
     const links = [
         {
             name: "Home",
@@ -12,9 +12,9 @@ const Navbar = () => {
             icon: "/home.png"
         },
         {
-            name: "About",
-            link: "/about",
-            icon: "/about.png"
+            name: "Listings",
+            link: "/list",
+            icon: "/listings.png"
         },
         {
             name: "Agents",
@@ -28,8 +28,8 @@ const Navbar = () => {
         }
     ]
 
-    const menuOpener = () => setActive(true)
-    const menuCloser = () => setActive(false)
+    const menuOpener = () => setOpen(true)
+    const menuCloser = () => setOpen(false)
   return (
     <nav className="flex justify-between items-center h-[70px] font-bold">
         <NavLink to="/" className="logo flex items-center gap-5">
@@ -61,7 +61,7 @@ const Navbar = () => {
         <div className="menuIcon sm:hidden w-[30px] cursor-pointer" onClick={() => menuOpener()}>
             <img src="/menu.png" alt="menu icon" />
         </div>
-        <div className={`mobile-menu absolute top-0 z-20 bg-[#0d263bd2] w-full text-[#F4F9FF] h-screen sm:hidden ${active ? "right-0" : "right-[-100%]"} custom-transition backdrop-blur-lg`}>
+        <div className={`mobile-menu absolute top-0 z-20 bg-[#0d263bd2] w-full text-[#F4F9FF] h-screen sm:hidden ${open ? "right-0" : "right-[-100%]"} custom-transition backdrop-blur-lg`}>
            
             <div className="w-[90%] mx-auto flex gap-5 items-center mt-5">
                 <NavLink to="/" className="logo items-center gap-3 flex mr-2">
@@ -86,9 +86,19 @@ const Navbar = () => {
                     </NavLink>)
                 }
             </div>
+            
             <div className="authorization flex w-[90%] mx-auto gap-5 mt-10 text-[#dcecff]">
-                <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Log In</button>
-                <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Sign Up</button>
+                {user? 
+                <Link to={'/profile'} className="user flex items-center gap-5 relative" onClick={menuCloser}>
+                    <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">3</div>
+                    <img src={userData[0].img} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
+                    <h1 className=" px-5 py-2 text-white border-[3px] border-white rounded ease-in-out duration-200 cursor-pointer">{userData[0].name}</h1>
+                    </Link>:
+                    <>
+                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Log In</button>
+                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Sign Up</button>
+                    </>
+                }
             </div>
         </div>
     </nav>

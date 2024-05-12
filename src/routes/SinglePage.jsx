@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Details from '../components/Details';
 
 import {listData} from '../lib/dummydata'
@@ -6,7 +5,6 @@ import Map from '../components/Map';
 import { useParams } from 'react-router-dom';
 import ImageGrid from '../components/ImageGrid';
 import CallToAction from '../components/CallToAction';
-import SingleMap from '../components/singleMap';
 const SinglePage = () => {
   const {id} = useParams();
   return (
@@ -21,7 +19,7 @@ const SinglePage = () => {
 
       <div className='map hidden sm:flex z-0'>
         <div className='w-[90%] ml-auto rounded-lg overflow-hidden'>
-          <SingleMap item={listData.filter(item => item.id == Number(id))}/>
+          <Map item={listData.filter(item => item.id == Number(id))}/>
         </div>
       </div>
     </div>

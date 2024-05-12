@@ -5,7 +5,7 @@ import {listData} from '../lib/dummydata'
 import '../index.css'
 import SearchFilter from '../components/SearchFilter'
 import Map from '../components/Map'
-import SingleMap from '../components/singleMap'
+import Listings from '../components/Listings'
 const ListPage = () => {
   const [open, setOpen] = useState(false)
 
@@ -28,19 +28,14 @@ const ListPage = () => {
             <SearchFilter onSearch={(query) => console.log(query)}/>
           </div>
         </div>
-
         <div className='list-height overflow-y-scroll mt-3 custom-scroll md:px-2 pb-2'>
-          <div className='grid xl:grid-cols-2 gap-4 green'>
-            {listData.map((property, index) => (
-              <List key={index} property={property} />
-            ))}
-          </div>
+          <Listings/>
         </div>
       </div>
 
         <div className='w-full py-3 max-md:pl-3 pl-2 hidden xs:block'>
           <div className='h-full rounded-lg overflow-hidden'>
-            <SingleMap item={listData} single={false}/>
+            <Map item={listData} single={false}/>
           </div>
         </div>
 

@@ -57,8 +57,9 @@ input:focus::placeholder {
     display: none; /* Hide scrollbar for Chrome, Safari, and newer Edge */
   }
 .list-height{
-    height: calc(100% - 40px);
+  height: calc(100% - 40px);
 }
+
   
 /* Tailwind CSS */
 .menu-item {
@@ -87,3 +88,22 @@ input:focus::placeholder {
     display: inline-block;
     max-width: fit-content;
   }
+
+
+  .message {
+    padding: 10px;
+    border-radius: 0px 20px 0px 20px;
+    background-color: #F3F4F6;
+    color: #1F2937;
+    max-width: 70%;
+    font-weight: bold;
+    color: gray
+  }
+  
+  .own {
+    border-radius: 20px 0px 20px 0px;
+    align-self: flex-end;
+    background-color: #c5e3ff;
+    color: #347ad6;
+  }
+  

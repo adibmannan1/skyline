@@ -4,13 +4,19 @@ import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Map = ({ data }) => {
-    const [position, setPosition] = useState([data[0].latitude, data[0].longitude]);
-    const [zoom, setZoom] = useState(6);
+const Map = ({ item, single }) => {
+    console.log(item)
+    const data = single ? item[0] : item;
+    const [zoom, setZoom] = useState(single ? 10 : 6);
+    const [position, setPosition] = useState([single ? data.latitude : data[0].latitude, single ? data.longitude : data[0].longitude]);
 
     const handleMarkerClick = (latitude, longitude) => {
-      setPosition([latitude, longitude]);
-      setZoom(7.5);
+        if(single){
+          setZoom(10);
+        }else{
+          setZoom(7.5);
+        }
+        setPosition([latitude, longitude]);
     };
 
     return (
@@ -19,8 +25,12 @@ const Map = ({ data }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <div>
-                {data.map(property => (
+
+            
+              
+                <div>
+                
+                {item.map(property => (
                     <Marker
                         key={property.id}
                         position={[property.latitude, property.longitude]}
@@ -40,7 +50,11 @@ const Map = ({ data }) => {
                       </Popup>
                     </Marker>
                 ))}
-            </div>
+
+            </div> 
+        
+            
+            
         </MapContainer>
     );
 }

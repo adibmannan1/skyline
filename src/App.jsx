@@ -1,14 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar"
 import Home from "./routes/Home"
-import ListPage from "./routes/Listings.jsx";
+import ListPage from "./routes/ListPage.jsx";
 import SinglePage from "./routes/SinglePage.jsx";
 import './index.css'
 import Profile from "./routes/Profile.jsx";
 
 function App() {
-
-
   return (
     <>
       <div className="w-full bg-[#F4F9FF] md:h-screen">

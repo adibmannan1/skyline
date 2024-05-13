@@ -9,7 +9,7 @@ import Profile from "./routes/Profile.jsx";
 function App() {
   return (
     <>
-      <div className="w-full bg-[#F4F9FF] md:h-screen">
+      {/* <div className="w-full bg-[#F4F9FF] md:h-screen">
         <div className="w-full md:mx-auto px-4 md:px-0 md:w-[90%] mx-auto">
           <Navbar/>
           <Routes>
@@ -19,7 +19,7 @@ function App() {
             <Route path="/profile" element={<Profile />}/>
           </Routes>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

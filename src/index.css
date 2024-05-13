@@ -99,6 +99,14 @@ input:focus::placeholder {
     font-weight: bold;
     color: gray
   }
+  .message-indicator {
+    padding: 10px;
+    border-radius: 0px 20px 0px 20px;
+    background-color: #F3F4F6;
+    color: #1F2937;
+    font-weight: bold;
+    color: gray
+  }
   
   .own {
     border-radius: 20px 0px 20px 0px;
@@ -106,4 +114,6 @@ input:focus::placeholder {
     background-color: #c5e3ff;
     color: #347ad6;
   }
-  
+  .chat-mobile-height{
+    height: calc(100% - 160px);
+  }

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import Listings from "../components/Listings";
 import { userData } from "../lib/dummydata";
+import Chats from "../components/Chats";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const menuOpener = () => setOpen(true)
-  const menuCloser = () => setOpen(false)
+  const chatOpener = () => setOpen(true)
+  const chatCloser = () => setOpen(false)
   const user = userData[0]
   return (
     <div className="flex flex-col gap-10 hero pt-5 overflow-hidden relative">
       <div className="chat-opener absolute bottom-5 right-3 bg-[#0061E0] p-5 rounded-full sm:hidden">
-        <img src="/message-white.png" alt="" className="w-7 h-7 cursor-pointer" onClick={menuOpener}/>
+        <img src="/message-white.png" alt="" className="w-7 h-7 cursor-pointer" onClick={chatOpener}/>
       </div>
 
       {/* User Info Section */}
@@ -59,52 +59,9 @@ const Profile = () => {
 
         
         {/* Chats Section (Placeholder) */}
-        <div className={`chats ${open ? "bottom-0" : "-bottom-full"} absolute w-full h-full sm:static flex-1 bg-white px-4 pt-2 rounded-lg custom-transition `}>
-
-          <div className="flex justify-between">
-            <h1 className="text-xl font-bold text-[#0D263B] mb-4">Chats</h1>
-            <button className="rounded-full sm:hidden flex justify-center items-center text-[#5a1827] bg-[#ff416a] w-7 h-7" onClick={menuCloser}>
-              <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 384 512">
-                <path fill="#5a1827" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
-              </svg>
-            </button>
-          </div>
-
-        {/* Chat Messages */}
-          <div className="flex flex-col gap-2 mt-4 sm:h-[325px] overflow-y-auto custom-scroll">
-            <p className="message">Previous chat message</p>
-            <p className="message own">Your chat message</p>
-            <p className="message">Another chat message</p>
-            <p className="message own">Your chat message</p>
-            <p className="message">Previous chat message</p>
-            <p className="message own">Your chat message</p>
-            <p className="message">Another chat messa ge</p>
-            <p className="message own">Your chat message</p>
-            <p className="message">Previous chat message</p>
-            <p className="message own">Your chat message</p>
-            <p className="message">Another chat message</p>
-            <p className="message own">Your chat message</p>
-          </div>
-
-        {/* Bottom Section for Typing and Sending Messages */}
-          <div className="mt-4 flex items-center">
-            <input
-              type="text"
-              className="flex-1 px-3 py-2 bg-gray-100 rounded focus:outline-none"
-              placeholder={`Talk to ${user.name}`}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button
-              className="ml-3 px-4 py-2 bg-[#0061E0] rounded text-white hover:bg-[#0e305d] ease-in-out duration-200"
-              onClick={() => {
-                setMessage('');
-              }}
-            >
-              <img src="/send2.png" alt="send icon" className="w-5 h-5"/>
-            </button>
-          </div>
-    </div>
+        <div className={`chats ${open ? "bottom-0" : "-bottom-full"} absolute w-full h-full sm:static flex-1 bg-white pb-2 px-4 rounded-lg custom-transition `}>
+          <Chats user={user} chatOpener={chatOpener} chatCloser={chatCloser}/>
+        </div>
       </div>
     </div>
   );

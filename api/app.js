@@ -1,10 +1,15 @@
 import express from 'express';
 const app = express();
 const port = 3000;
-import authRouter from './routes/auth.route';
+import authRoute from './routes/auth.route.js';
+import postRoute from './routes/post.route.js';
+import userRoute from './routes/user.route.js';
+app.use(express.json())
 
-app.get('/api', authRouter);
+app.use('/api/auth', authRoute);
+app.use('/api/posts', postRoute);
+app.use('/api/user', userRoute);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`app listening at http://localhost:${port}`)
 })

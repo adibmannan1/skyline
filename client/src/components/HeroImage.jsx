@@ -1,10 +1,10 @@
-const HeroImage = ({ src}) => {
+const HeroImage = ({src}) => {
   
   return (
-    <div className={`image md:pb-10 w-[90%] m-auto`}>
-      <img src={src} alt='house-image'  />
-    </div>
-  );
+  <div className={`image  w-[80%] m-auto`}>
+    <img src={src} alt='house-image'  />
+  </div>
+);
 };
 
 

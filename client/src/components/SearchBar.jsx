@@ -19,7 +19,7 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <div className="my-6">
+    <div className="my-6 w-[93%]">
       <div className="filters flex bg-white rounded-t-lg w-[150px] justify-between font-semibold text-[#91a4b5] overflow-hidden uppercase cursor-pointer">
           <div className={`${query.type === 'buy'? 'bg-[#95ccff] text-[#0061E0]' : ''} px-4 py-2`} onClick={() => setQuery({...query, type: 'buy'})}>
             Buy

@@ -22,6 +22,7 @@ const Home = () => {
   ], []);
 
   useEffect(() => {
+
     const timer = setTimeout(() => {
       const nextIndex = (currentImageIndex + 1) % images.length;
       setCurrentImageIndex(nextIndex);

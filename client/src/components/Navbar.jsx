@@ -1,11 +1,13 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { userData } from "../lib/dummydata"
 import apiRequest from "../lib/apiRequest"
+import { AuthContext } from "../context/AuthContext"
 
 const Navbar = () => {
+    const {user, updateUser} = useContext(AuthContext)
+
     const navigate = useNavigate()
-    const user = true
     const [open, setOpen] = useState(false)
     const links = [
         {
@@ -36,7 +38,7 @@ const Navbar = () => {
     const logOut = async(e) => {
         try{
             e.preventDefault()
-            localStorage.removeItem("user")
+            updateUser(null)
             await apiRequest.post("/auth/logout")
             navigate("/login")
         }catch(err){
@@ -62,17 +64,21 @@ const Navbar = () => {
             {user? 
                 <Link to={'/profile'} className="user flex items-center gap-5">
                     <div className="relative">
-                        <img src={userData[0].img} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
+                        <img src='/dummydp.png' alt="user image" className="w-11 h-11 object-cover rounded-full"/>
                         <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">
                         3</div>
                     </div>
-
                     <button onClick={logOut} className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200 cursor-pointer">Log Out</button>
                 </Link>:
-                <>
-                    <button className="text-[#0061E0] hover:text-black ease-in-out duration-200">Log In</button>
-                    <button className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200">Sign Up</button>
-                </>
+                <div className="flex items-center gap-5">  
+                    <Link to='/login'>
+                        <button className="text-[#0061E0] hover:text-black ease-in-out duration-200">Log In</button>
+                    </Link>
+
+                    <Link to='/register'>
+                        <button className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200">Register</button>
+                    </Link>
+                </div>
             }
         </div>
         <div className="menuIcon sm:hidden w-[30px] cursor-pointer" onClick={() => menuOpener()}>
@@ -105,17 +111,18 @@ const Navbar = () => {
             </div>
             
             <div className="authorization flex w-[90%] mx-auto gap-5 mt-10 text-[#dcecff]">
-                {user? 
+                {user? <>
                 <Link to={'/profile'} className="user flex items-center gap-5 relative" onClick={menuCloser}>
-                    <div>
+                
                     <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">3</div>
-                        <img src={userData[0].img} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
-                    </div>
+                        <img src={user.avatar || '/dummydp.png'} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
+                        </Link>
                     <button onClick={logOut} className="px-5 py-2 text-white border-[3px] border-white rounded ease-in-out duration-200 cursor-pointer">Log Out</button>
-                    </Link>:
+
+                    </>:
                     <>
-                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Log In</button>
-                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]">Sign Up</button>
+                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]"><Link to='/login'>Log In</Link></button>
+                        <button className="uppercase border-2 rounded px-3 py-2 border-[#dcecff]"><Link to='/register'>Register</Link></button>
                     </>
                 }
             </div>

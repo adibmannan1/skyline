@@ -10,9 +10,11 @@ import Home from './routes/Home.jsx';
 import SinglePage from './routes/SinglePage.jsx';
 import Profile from './routes/Profile.jsx';
 import ListPage from './routes/ListPage.jsx';
-import Layout from './routes/Layout.jsx';
+import { Layout, RequiredLayout } from './routes/Layout.jsx';
 import Login from './routes/Login.jsx';
 import Register from './routes/Register.jsx';
+import { AuthContextProvider } from './context/AuthContext.jsx';
+import Update from './routes/Update.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,10 +34,6 @@ const router = createBrowserRouter([
         element:<SinglePage/>
       },
       {
-        path:"/profile",
-        element:<Profile/>
-      },
-      {
         path:"/login",
         element:<Login/>
       },
@@ -44,11 +42,28 @@ const router = createBrowserRouter([
         element:<Register/>
       }
     ]
+  },
+  {
+    path: "/",
+    element: <RequiredLayout/>,
+    children:[
+      {
+        path:"/profile",
+        element:<Profile/>
+      },
+      {
+        path:"/profile/update",
+        element:<Update/>
+      },
+
+    ]
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </React.StrictMode>,
 )

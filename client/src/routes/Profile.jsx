@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Listings from "../components/Listings";
 import { userData } from "../lib/dummydata";
 import Chats from "../components/Chats";
+import { AuthContext } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const {user, updateUser} = useContext(AuthContext)
+
   const [open, setOpen] = useState(false);
   const chatOpener = () => setOpen(true)
   const chatCloser = () => setOpen(false)
-  const user = userData[0]
   return (
     <div className="flex flex-col gap-10 hero pt-5 overflow-hidden relative">
       <div className="chat-opener absolute bottom-5 right-3 bg-[#0061E0] p-5 rounded-full sm:hidden">
@@ -18,10 +21,10 @@ const Profile = () => {
       <div className="user-info flex flex-col gap-6 md:gap-0 md:flex-row justify-between items-start md:items-center">
         <div className="info flex gap-5">
 
-          <img src={user.img} alt="" className="w-32 h-32 rounded-full object-cover"/>
+          <img src={user.img || '/dummydp.png'} alt="" className="w-32 h-32 rounded-full object-cover"/>
 
           <div className="texts text-[#7C8893]">
-            <h1 className="text-3xl font-bold text-[#0D263B]">{user.name}</h1>
+            <h1 className="text-3xl font-bold text-[#0D263B] capitalize">{user.name}</h1>
             <h2 className="font-semibold mb-4">Real Estate Agent</h2>
             <p>{user.age} Years Old</p>
             <div className="location flex gap-2 items-center">
@@ -39,10 +42,12 @@ const Profile = () => {
             </div>
             <p>Add A Property</p>
           </button>
-          <button className="bg-[#0061E0] rounded px-5 py-2 text-white hover:bg-[#071a34] hover:text-white border-[3px] border-[#0061E0] hover:border-[#071a34] ease-in-out duration-200 font-bold flex items-center gap-2">
-            <img src="/update.png" alt="icon" className="w-5"/>
-            <p>Update</p>
-          </button>
+          <Link to="/profile/update">
+            <button className="bg-[#0061E0] rounded px-5 py-2 text-white hover:bg-[#071a34] hover:text-white border-[3px] border-[#0061E0] hover:border-[#071a34] ease-in-out duration-200 font-bold flex items-center gap-2">
+              <img src="/update.png" alt="icon" className="w-5"/>
+              <p>Update</p>
+            </button>
+          </Link>
         </div>
       </div>
       

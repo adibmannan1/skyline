@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Map = ({ item, single }) => {
-    console.log(item)
     const data = single ? item[0] : item;
     const [zoom, setZoom] = useState(single ? 10 : 6);
     const [position, setPosition] = useState([single ? data.latitude : data[0].latitude, single ? data.longitude : data[0].longitude]);

@@ -1,10 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+
+  //context
+  const {updateUser} = useContext(AuthContext)
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -20,8 +24,8 @@ const Login = () => {
         password,
       })
       navigate('/profile')
-      localStorage.setItem('user', JSON.stringify(res.data))
-      console.log(res.data)
+      
+      updateUser(res.data)
     }catch(err){
       setError(err.response.data)
     }finally{

@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Listings from "../components/Listings";
-import { userData } from "../lib/dummydata";
 import Chats from "../components/Chats";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,8 +24,8 @@ const Profile = () => {
 
           <div className="texts text-[#7C8893]">
             <h1 className="text-3xl font-bold text-[#0D263B] capitalize">{user.name}</h1>
-            <h2 className="font-semibold mb-4">Real Estate Agent</h2>
-            <p>{user.age} Years Old</p>
+            <p className="mb-4 text-xl">{user.age} Years Old</p>
+            <h2 className="font-semibold">{user.email}</h2>
             <div className="location flex gap-2 items-center">
               <img src="/location.svg" alt="" className="hidden sm:block w-5 h-5"/>
               <p className="font-bold">{user.address}</p>

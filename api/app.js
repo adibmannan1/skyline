@@ -14,7 +14,7 @@ app.use(cors({origin: process.env.CLIENT_URL, credentials: true}))
 
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
-app.use('/api/user', userRoute);
+app.use('/api/users', userRoute);
 app.use('/api/test', testRoute);
 
 app.listen(port, () => {

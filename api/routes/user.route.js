@@ -1,9 +1,11 @@
 import express from 'express'
-import { login, logout, register } from '../controllers/auth.controller.js'
-const router= express.Router()
+import { deleteUser, getUser, getUsers, updateUser } from '../controllers/user.controller.js'
+import { verifyToken } from '../middlewares/verifyToken.js'
+const router = express.Router()
 
-router.get('/', (req, res) => {
-    console.log('it works')
-})
+router.get('/', getUsers)
+router.get('/:id', verifyToken, getUser)
+router.put('/update/:id', verifyToken, updateUser)
+router.delete('/delete/:id', verifyToken, deleteUser)
 
 export default router

@@ -2,11 +2,13 @@ import apiRequest from "../lib/apiRequest";
 import { useContext, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { AuthContext } from "../context/AuthContext";
+import Upload from "../components/Upload";
 const Update = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const {user, updateUser} = useContext(AuthContext)
+  const [avatar, setAvatar] = useState(user.avatar);
 
 
   const handleSubmit = async(e) => {
@@ -14,11 +16,12 @@ const Update = () => {
     try{
       const formData = new FormData(e.target);
       const {username, email, age, address} = Object.fromEntries(formData);
-      const res = await apiRequest.post(`/users/update/${user.id}`, {
+      const res = await apiRequest.put(`/users/update/${user.id}`, {
         username,
         email,
-        age,
-        address
+        age: Number(age),
+        address,
+        avatar
       })
       updateUser(res.data)
       navigate('/profile')
@@ -33,8 +36,18 @@ const Update = () => {
         <p className="text-red-700 font-semibold">{error}</p>
       </div>
 
-      <div className="flex-1 flex items-center justify-center">
-        <img src={user.avatar || '/dummydp.png'} alt="Register" className="max-w-full h-auto rounded-[50px]" />
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <img src={avatar || '/dummydp.png'} alt="Register" className="max-w-[350px] h-auto rounded-[50px]" />
+        <div className="mt-4 flex flex-col items-center">
+          <Upload uwConfig={{
+            cloudName: 'adibmannan',
+            uploadPreset: 'skyline',
+            multiple: false,
+            maxImageFile: 2000000,
+            folder: 'avatars'
+          }} setAvatar={setAvatar}/>
+          <p className="text-sm text-gray-400 mt-1">click twice to upload</p>
+        </div>
       </div>
       <div className="flex-1 flex items-center justify-center sm:p-10">
         <div className="w-full max-w-md">

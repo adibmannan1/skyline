@@ -7,13 +7,6 @@ dotenv.config()
 export const register = async(req, res) => {
     try{
         const {name, username, email, password, age, address} = req.body
-        const finalUser = {
-            name,
-            username,
-            email,
-            age,
-            address
-        }
         const hashedPassword = await bcrypt.hash(password, 10) //password hashing
 
         const userExists = await prisma.user.findUnique({where: {username}}) //user exists or not
@@ -38,6 +31,7 @@ export const register = async(req, res) => {
             isAdmin: true
         }, process.env.JWT_SECRET_KEY, { expiresIn: expiresIn });
 
+        const {password: userPassword, ...finalUser} = user
         res.cookie('token', token, {
             httpOnly: true,
             // secure: true,
@@ -61,14 +55,6 @@ export const login = async(req, res) => {
             return res.status(401).send('Wrong email')
         }
         else {
-      
-            const finalUser = {
-                name: user.name,
-                username: user.username,
-                email: user.email,
-                age: user.age,
-                address: user.address
-            }
        
             const expiresIn = 3600 * 24 * 7 * 1000
             const token = jwt.sign({
@@ -76,6 +62,8 @@ export const login = async(req, res) => {
                 isAdmin: true
             }, process.env.JWT_SECRET_KEY, { expiresIn: expiresIn });
 
+            
+            const {password: userPassword, ...finalUser} = user
             res.cookie('token', token, {
                 httpOnly: true,
                 // secure: true,

@@ -64,7 +64,7 @@ const Navbar = () => {
             {user? 
                 <Link to={'/profile'} className="user flex items-center gap-5">
                     <div className="relative">
-                        <img src='/dummydp.png' alt="user image" className="w-11 h-11 object-cover rounded-full"/>
+                        <img src={user.avatar || '/dummydp.png'} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
                         <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">
                         3</div>
                     </div>

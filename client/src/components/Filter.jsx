@@ -48,9 +48,10 @@ const Filter = ({ menuCloser }) => {
             <li key={property} className="py-1">
               <label htmlFor={property} className="flex items-center capitalize cursor-pointer">
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={property}
-                  name={property}
+                  name='radio'
+                  value={property}
                   className="h-5 w-5 mr-2 cursor-pointer"
                 />
                 {property}

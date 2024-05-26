@@ -1,10 +1,12 @@
 import apiRequest from "../lib/apiRequest";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom'
+import { AuthContext } from "../context/AuthContext";
 const Register = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
+  const {updateUser} = useContext(AuthContext)
 
   const handleSubmit = async(e) => {
     setError('')
@@ -27,11 +29,9 @@ const Register = () => {
         address
       })
       navigate('/profile')
-      localStorage.setItem('user', JSON.stringify(res.data))
-      console.log(res.data)
+      updateUser(res.data)
     }catch(err){
       setError(err.response.data)
-      console.log(err.response.data)
     }finally{
       setLoading(false)
     }

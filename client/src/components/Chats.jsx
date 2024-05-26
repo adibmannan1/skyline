@@ -92,8 +92,8 @@ const Chats = ({user, chatCloser}) => {
 
         <div className="all-chat-container flex flex-col h-full gap-4 overflow-y-scroll custom-scroll">
             {
-              messageList.map(message => (
-                <div className="message-indicator flex w-full items-center cursor-pointer" key={message.message} onClick={() => setChatOpen(true)}>
+              messageList.map((message, index) => (
+                <div className="message-indicator flex w-full items-center cursor-pointer" key={index} onClick={() => setChatOpen(true)}>
                   <img src={message.img} alt="profile picture" className="w-11 h-11 object-cover rounded-full mr-2"/>
                   <div className="texts flex flex-col">
                     <h1 className="text-black text-lg">{message.username}</h1>
@@ -108,7 +108,7 @@ const Chats = ({user, chatCloser}) => {
     <div className={`single-chat w-full h-full absolute bg-white top-0 ${chatOpen ? 'right-0' : '-right-[110%]'} pt-3 custom-transition`}>
       <div className="chat-header flex justify-between items-center">
         <div className="user-chat-container flex items-center gap-2">
-          <img src={user.img} alt="" className="w-11 h-11 object-cover rounded-full"/>
+          <img src={user.avatar} alt="" className="w-11 h-11 object-cover rounded-full"/>
           <h1 className="text-xl font-bold text-[#0D263B]">{user.name}</h1>
         </div>
           <img src="/exit.png" alt="exit icon" className="w-6 h-6 cursor-pointer"  onClick={() => setChatOpen(false)}/>

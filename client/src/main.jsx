@@ -15,6 +15,8 @@ import Login from './routes/Login.jsx';
 import Register from './routes/Register.jsx';
 import { AuthContextProvider } from './context/AuthContext.jsx';
 import Update from './routes/Update.jsx';
+import NewPost from './routes/NewPost.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
       {
         path:"/profile/update/:id",
         element:<Update/>
+      },
+      {
+        path:"/profile/add",
+        element:<NewPost/>
       },
 
     ]

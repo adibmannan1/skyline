@@ -6,11 +6,13 @@ import { useParams } from 'react-router-dom';
 import ImageGrid from '../components/ImageGrid';
 import CallToAction from '../components/CallToAction';
 const SinglePage = () => {
-  const {id} = useParams();
+  // const {id} = useParams();
+  const id = 1;
+  const images = [listData[(id-1)].img, listData[(id-1)].img2, listData[(id-1)].img3, listData[(id-1)].img4]
   return (
     <div className='flex hero justify-between py-3'>
       <div className='property-contents sm:w-[80%] mx-auto flex flex-col justify-between z-10'>
-        <ImageGrid img={listData[(id-1)].img} img2={listData[(id-1)].img2} img3={listData[(id-1)].img3} img4={listData[(id-1)].img4}/>
+        <ImageGrid images={images}/>
         <div>
           <Details property={listData[(id-1)]}/>
         </div>

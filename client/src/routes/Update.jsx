@@ -8,7 +8,7 @@ const Update = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const {user, updateUser} = useContext(AuthContext)
-  const [avatar, setAvatar] = useState(user.avatar);
+  const [avatar, setAvatar] = useState([]);
 
 
   const handleSubmit = async(e) => {
@@ -21,7 +21,7 @@ const Update = () => {
         email,
         age: Number(age),
         address,
-        avatar
+        avatar: avatar[0]
       })
       updateUser(res.data)
       navigate('/profile')
@@ -37,7 +37,7 @@ const Update = () => {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center">
-        <img src={avatar || '/dummydp.png'} alt="Register" className="max-w-[350px] h-auto rounded-[50px]" />
+        <img src={avatar[0] || user.avatar || '/dummydp.png'} alt="Register" className="max-w-[350px] h-auto rounded-[50px]" />
         <div className="mt-4 flex flex-col items-center">
           <Upload uwConfig={{
             cloudName: 'adibmannan',
@@ -45,7 +45,7 @@ const Update = () => {
             multiple: false,
             maxImageFile: 2000000,
             folder: 'avatars'
-          }} setAvatar={setAvatar}/>
+          }} setState={setAvatar}/>
           <p className="text-sm text-gray-400 mt-1">click twice to upload</p>
         </div>
       </div>

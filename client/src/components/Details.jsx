@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { userData } from "../lib/dummydata";
+import DOMPurify from 'dompurify'
 
 const Details = ({ property }) => {
   const menuItems = [
@@ -42,7 +42,12 @@ const Details = ({ property }) => {
         ) : activeMenuItem.id === 'details' ? (
           <DetailComponent property={property} />
         ) : (
-          <div className="font-semibold text-[#7C8893] h-full overflow-y-auto">{property.description}</div>
+          <div className="font-semibold text-[#7C8893] h-full overflow-y-auto"
+          dangerouslySetInnerHTML={{
+
+            __html: DOMPurify.sanitize(property.description)
+
+          }}></div>
         )}
       </div>
     </div>
@@ -72,12 +77,12 @@ export const Price = ({property}) => {
     <div className="user flex flex-col gap-2 justify-between items-center">
       <div className="w-16 h-16 md:w-28 md:h-28 rounded-full overflow-hidden">
         <img
-          src={userData[0].img}
+          src={property.user.avatar}
           alt="user image"
           className="w-full h-full object-cover"
         />
       </div>
-        <h1 className="font-bold md:font-extrabold bg-gray-200 text-sm md:text-base p-2 rounded">{userData[0].name}</h1>
+        <h1 className="font-bold md:font-extrabold bg-gray-200 text-sm md:text-base p-2 rounded">{property.user.username}</h1>
       </div>
     </div>
   )

@@ -30,15 +30,14 @@ const NewPost = () => {
           type: inputs.type,
           size: parseInt(inputs.size),
           property: inputs.property,
-          latitude: parseInt(inputs.latitude),
-          longitude: parseInt(inputs.longitude),
+          latitude: parseFloat(inputs.latitude),
+          longitude: parseFloat(inputs.longitude),
           images: images,
           amenities: [inputs.amenities]
 
       })
 
       navigate(`/list/${res.data.id}`)
-      console.log(res.data)
     }catch(err){
       setError(err.response.data)
     }
@@ -124,7 +123,7 @@ const NewPost = () => {
       <div className="three-inputs flex justify-between gap-4 mb-4">
         <div className="flex-1">
           <input
-            type="number"
+            type="text"
             name="latitude"
             className="mt-1 p-3 bg-transparent border rounded focus:outline-none focus:border-blue-300"
             placeholder='Latitude'
@@ -132,7 +131,7 @@ const NewPost = () => {
         </div>
         <div className="flex-1">
           <input
-            type="number"
+            type="text"
             name="longitude"
             className="mt-1 p-3 bg-transparent border rounded focus:outline-none focus:border-blue-300"
             placeholder='Longitude'

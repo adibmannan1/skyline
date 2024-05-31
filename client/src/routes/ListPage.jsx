@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Filter from '../components/Filter'
-import List from '../components/List'
-import {listData} from '../lib/dummydata'
 import '../index.css'
 import SearchFilter from '../components/SearchFilter'
 import Map from '../components/Map'
 import Listings from '../components/Listings'
+import { Await, useLoaderData } from 'react-router-dom'
 const ListPage = () => {
   const [open, setOpen] = useState(false)
 
   const menuOpener = () => setOpen(true)
   const menuCloser = () => setOpen(false)
+
+  const listData = useLoaderData();
+
 
   return (
     <div className='flex relative hero mx-auto border-t-2'>
@@ -29,13 +31,39 @@ const ListPage = () => {
           </div>
         </div>
         <div className='list-height overflow-y-scroll mt-3 custom-scroll md:px-2 pb-2'>
-          <Listings/>
+        <Suspense
+        fallback={<p>Loading...</p>}
+        >
+          <Await
+            resolve={listData.posts}
+            errorElement={
+              <p>Error while loading.</p>
+            }
+          >
+            {posts => (
+            <Listings listData={posts.data}/>
+            )}
+          </Await>
+        </Suspense>
         </div>
       </div>
 
         <div className='w-full py-3 max-md:pl-3 pl-2 hidden xs:block'>
           <div className='h-full rounded-lg overflow-hidden'>
-            <Map item={listData} single={false}/>
+          <Suspense
+        fallback={<p>Loading...</p>}
+        >
+          <Await
+            resolve={listData.posts}
+            errorElement={
+              <p>Error while loading.</p>
+            }
+          >
+            {posts => (
+              <Map item={posts.data} single={false}/>
+            )}
+          </Await>
+        </Suspense>
           </div>
         </div>
 

@@ -16,6 +16,7 @@ import Register from './routes/Register.jsx';
 import { AuthContextProvider } from './context/AuthContext.jsx';
 import Update from './routes/Update.jsx';
 import NewPost from './routes/NewPost.jsx';
+import { listPageLoader, listsLoader, singlePageLoader } from './lib/loaders.js';
 
 
 const router = createBrowserRouter([
@@ -29,11 +30,13 @@ const router = createBrowserRouter([
       },
       {
         path:"/list",
-        element:<ListPage/>
+        element:<ListPage/>,
+        loader: listPageLoader
       },
       {
         path:"list/:id",
-        element:<SinglePage/>
+        element:<SinglePage/>,
+        loader: singlePageLoader
       },
       {
         path:"/login",
@@ -51,7 +54,8 @@ const router = createBrowserRouter([
     children:[
       {
         path:"/profile",
-        element:<Profile/>
+        element:<Profile/>,
+        loader: listsLoader
       },
       {
         path:"/profile/update/:id",

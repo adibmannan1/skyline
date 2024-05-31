@@ -5,9 +5,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Map = ({ item, single }) => {
-    const data = single ? item[0] : item;
-    const [zoom, setZoom] = useState(single ? 10 : 6);
-    const [position, setPosition] = useState([single ? data.latitude : data[0].latitude, single ? data.longitude : data[0].longitude]);
+    const data = single ? [item] : item
+    const [zoom, setZoom] = useState(single ? 8 : 6);
+    const [position, setPosition] = useState([data[0].latitude, data[0].longitude]);
+    // console.log('map')
+    // console.log(data)
 
     const handleMarkerClick = (latitude, longitude) => {
         if(single){
@@ -29,7 +31,7 @@ const Map = ({ item, single }) => {
               
                 <div>
                 
-                {item.map(property => (
+                {data.map(property => (
                     <Marker
                         key={property.id}
                         position={[property.latitude, property.longitude]}
@@ -39,7 +41,7 @@ const Map = ({ item, single }) => {
                     >
                       <Popup>
                           <>
-                            <img src={property.img} alt="property thumbnail" className='rounded'/>
+                            <img src={property.images[0]} alt="property thumbnail" className='rounded'/>
                             <div className="textContainer">
                               <Link to={`list/${property.id}`} className='font-bold'>{property.title}</Link>
                               <p>{`${property.bedroom} bed, ${property.bathroom} bath`}</p>

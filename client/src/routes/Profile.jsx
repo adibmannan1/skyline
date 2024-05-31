@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import Listings from "../components/Listings";
 import Chats from "../components/Chats";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const Profile = () => {
   const {user} = useContext(AuthContext)
+  const listData = useLoaderData()
 
   const [open, setOpen] = useState(false);
   const chatOpener = () => setOpen(true)
@@ -58,7 +59,7 @@ const Profile = () => {
         <div className="listings flex-1 h-full custom-scroll overflow-y-auto  rounded-lg">
           <h1 className="text-xl font-bold text-[#0D263B] mb-4 bg-white py-2 px-4 rounded-lg inline-block">Listings</h1>
           <div className="flex-1 pb-3">
-            <Listings />
+            <Listings listData={listData}/>
           </div>
         </div>
 

@@ -1,24 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const Filter = ({ menuCloser }) => {
-  const propertyTypes = ['apartment', 'house', 'room'];
-  const amenities = ['furnished', 'utilities', 'pets allowed'];
+  const [searchParams, setSearchParams] = useSearchParams(); // Get the search parameters from the URL
 
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [selectedBedrooms, setSelectedBedrooms] = useState(0);
+  const [query, setQuery] = useState({
+    type: searchParams.get('type') || '',
+    bedroom: searchParams.get('bedroom') || 0,
+    minPrice: searchParams.get('minPrice') || 0,
+    maxPrice: searchParams.get('maxPrice') || 100000000,
+    category: searchParams.get('category') || '',
+    amenity1: searchParams.get('amenity1') || '',
+    amenity2: searchParams.get('amenity2') || '',
+    amenity3: searchParams.get('amenity3') || ''
+  });
 
-  const handleBedroomChange = (e) => {
-    const { value } = e.target;
-    const isSelected = selectedBedrooms === value;
 
-    if (isSelected) {
-      setSelectedBedrooms(selectedBedrooms.filter(bedroom => bedroom !== value));
-    } else {
-      setSelectedBedrooms([...selectedBedrooms, value]);
-    }
+  const handleChange = (e) => {
+    setQuery(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
+  useEffect(() => {
+    setSearchParams(query)
+  }, [query, setSearchParams]);
 
   return (
     <div className="pr-4 py-5 h-screen sm:h-full flex flex-col justify-between w-full bg-[#F4F9FF]">
@@ -43,22 +46,47 @@ const Filter = ({ menuCloser }) => {
             </svg>
           </button>
         </div>
-        <ul>
-          {propertyTypes.map(property => (
-            <li key={property} className="py-1">
-              <label htmlFor={property} className="flex items-center capitalize cursor-pointer">
-                <input
-                  type="radio"
-                  id={property}
-                  name='radio'
-                  value={property}
-                  className="h-5 w-5 mr-2 cursor-pointer"
-                />
-                {property}
-              </label>
-            </li>
-          ))}
-        </ul>
+        <form>
+          <div className="py-1">
+            <label className="flex items-center capitalize cursor-pointer">
+              <input
+                type="radio"
+                id='apartment'
+                name='category'
+                value='apartment'
+                className="h-5 w-5 mr-2 cursor-pointer"
+                onChange={handleChange}
+              />
+              Apartment
+            </label>
+          </div>
+          <li className="py-1">
+            <label className="flex items-center capitalize cursor-pointer">
+              <input
+                type="radio"
+                id='house'
+                name='category'
+                value='house'
+                className="h-5 w-5 mr-2 cursor-pointer"
+                onChange={handleChange}
+              />
+              House
+            </label>
+          </li>
+          <li className="py-1">
+            <label className="flex items-center capitalize cursor-pointer">
+              <input
+                type="radio"
+                id='room'
+                name='category'
+                value='room'
+                className="h-5 w-5 mr-2 cursor-pointer"
+                onChange={handleChange}
+              />
+              Room
+            </label>
+          </li>
+        </form>
       </div>
 
        {/* Type Filter */}
@@ -66,7 +94,7 @@ const Filter = ({ menuCloser }) => {
         <label htmlFor="type" className="text-lg font-semibold mb-2">
           Type
         </label>
-        <select name="type" id="type" className='w-full p-2 focus:outline-none border border-[#b4c6df] bg-transparent font-medium text-[#7C8893]'>
+        <select name="type" id="type" className='w-full p-2 focus:outline-none border border-[#b4c6df] bg-transparent font-medium text-[#7C8893]'onChange={handleChange}>
           <option value="buy">Buy</option>
           <option value="rent">Rent</option>
         </select>
@@ -74,17 +102,16 @@ const Filter = ({ menuCloser }) => {
 
        {/* Bedroom Filter */}
        <div className="mb-4">
-        <label htmlFor="bedroomInput" className="text-lg font-semibold mb-2 cursor-pointer">
+        <label htmlFor="bedroom" className="text-lg font-semibold mb-2 cursor-pointer">
           Bedrooms
         </label>
         <input
           type="number"
-          name='bedroomInput'
-          id="bedroomInput"
+          name='bedroom'
+          id="bedroom"
           placeholder="No of bedrooms"
           className="border w-full p-2 focus:outline-none border-[#b4c6df]"
-          // You can add onChange handler here to capture the input value
-        />
+          onChange={handleChange}/>
       </div>
 
       {/* Price Range Section */}
@@ -93,34 +120,55 @@ const Filter = ({ menuCloser }) => {
         <div className="flex gap-2">
           <input
             type="number"
+            name='minPrice'
             placeholder="Min"
             className="border p-2 focus:outline-none border-[#b4c6df] w-full"
-            value={minPrice}
-            onChange={e => setMinPrice(e.target.value)}
-          />
+            onChange={handleChange}/>
           <input
             type="number"
+            name='maxPrice'
             placeholder="Max"
             className="border p-2 focus:outline-none border-[#b4c6df] w-full"
-            value={maxPrice}
-            onChange={e => setMaxPrice(e.target.value)}
-          />
+            onChange={handleChange}/>
         </div>
       </div>
 
       {/* Amenities Section */}
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Amenities</h2>
-        <ul>
-          {amenities.map((amenity, index) => (
-            <li key={index} className="py-1">
-              <label className="flex items-center capitalize">
-                <input type="checkbox" className="mr-2 h-5 w-5 cursor-pointer" />
-                {amenity}
-              </label>
-            </li>
-          ))}
-        </ul>
+        <form>
+
+          <div className="py-1">
+            <label  className="flex items-center capitalize">
+              <input id='furniture' name='amenity1' type="checkbox"
+              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
+                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
+              }}/>
+              Furniture
+            </label>
+          </div>
+
+          <div className="py-1">
+            <label className="flex items-center capitalize">
+              <input id='utilities' name='amenity2' type="checkbox" 
+              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
+                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
+              }}/>
+              Utilities
+            </label>
+          </div>
+
+          <div className="py-1">
+            <label  className="flex items-center capitalize">
+              <input id='pets-allowed' name='amenity3' type="checkbox" 
+              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
+                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
+              }}/>
+               Pets Allowed
+            </label>
+          </div>
+     
+        </form>
       </div>
 
     </div>

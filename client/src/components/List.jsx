@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
 const List = ({ property }) => {
-  const { id, title, img, bedroom, bathroom, price, address } = property;
+  const { id, title, images, bedroom, bathroom, price, address } = property;
 
   return (
     <div className="bg-white rounded-lg p-2">
-      <Link to={`/list/${id}`}><img src={img} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
+      <Link to={`/list/${id}`}><img src={images[0]} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
       <div className="p-4">
         <Link to={`/list/${id}`}>
           <h2 className="font-bold text-lg mb-2 cursor-pointer">{title}</h2>

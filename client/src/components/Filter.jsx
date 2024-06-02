@@ -7,12 +7,10 @@ const Filter = ({ menuCloser }) => {
   const [query, setQuery] = useState({
     type: searchParams.get('type') || '',
     bedroom: searchParams.get('bedroom') || 0,
+    bathroom: searchParams.get('bathroom') || 0,
     minPrice: searchParams.get('minPrice') || 0,
     maxPrice: searchParams.get('maxPrice') || 100000000,
     category: searchParams.get('category') || '',
-    amenity1: searchParams.get('amenity1') || '',
-    amenity2: searchParams.get('amenity2') || '',
-    amenity3: searchParams.get('amenity3') || ''
   });
 
 
@@ -89,16 +87,6 @@ const Filter = ({ menuCloser }) => {
         </form>
       </div>
 
-       {/* Type Filter */}
-       <div className="mb-4 flex flex-col">
-        <label htmlFor="type" className="text-lg font-semibold mb-2">
-          Type
-        </label>
-        <select name="type" id="type" className='w-full p-2 focus:outline-none border border-[#b4c6df] bg-transparent font-medium text-[#7C8893]'onChange={handleChange}>
-          <option value="buy">Buy</option>
-          <option value="rent">Rent</option>
-        </select>
-      </div>
 
        {/* Bedroom Filter */}
        <div className="mb-4">
@@ -111,65 +99,59 @@ const Filter = ({ menuCloser }) => {
           id="bedroom"
           placeholder="No of bedrooms"
           className="border w-full p-2 focus:outline-none border-[#b4c6df]"
+          onChange={handleChange}
+          // defaultValue={query.bedroom}
+          />
+      </div>
+
+       {/* Bathroom Filter */}
+       <div className="mb-4">
+        <label htmlFor="bedroom" className="text-lg font-semibold mb-2 cursor-pointer">
+          Bathrooms
+        </label>
+        <input
+          type="number"
+          name='bathroom'
+          id="bathroom"
+          placeholder="No of bathrooms"
+          className="border w-full p-2 focus:outline-none border-[#b4c6df]"
           onChange={handleChange}/>
+      </div>
+
+      {/* Type Filter */}
+      <div className="mb-4 flex flex-col">
+        <label htmlFor="type" className="text-lg font-semibold mb-2">
+          Type
+        </label>
+        <select name="type" id="type" className='w-full p-2 focus:outline-none border border-[#b4c6df] bg-transparent font-medium text-[#7C8893]'onChange={handleChange}>
+          <option value="buy">Buy</option>
+          <option value="rent">Rent</option>
+        </select>
       </div>
 
       {/* Price Range Section */}
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Price Range</h2>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           <input
             type="number"
             name='minPrice'
             placeholder="Min"
             className="border p-2 focus:outline-none border-[#b4c6df] w-full"
-            onChange={handleChange}/>
+            onChange={handleChange}
+            // defaultValue={query.minPrice}
+          />
           <input
             type="number"
             name='maxPrice'
             placeholder="Max"
             className="border p-2 focus:outline-none border-[#b4c6df] w-full"
-            onChange={handleChange}/>
+            onChange={handleChange}
+            // defaultValue={query.maxPrice}
+            />
         </div>
       </div>
 
-      {/* Amenities Section */}
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Amenities</h2>
-        <form>
-
-          <div className="py-1">
-            <label  className="flex items-center capitalize">
-              <input id='furniture' name='amenity1' type="checkbox"
-              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
-                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
-              }}/>
-              Furniture
-            </label>
-          </div>
-
-          <div className="py-1">
-            <label className="flex items-center capitalize">
-              <input id='utilities' name='amenity2' type="checkbox" 
-              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
-                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
-              }}/>
-              Utilities
-            </label>
-          </div>
-
-          <div className="py-1">
-            <label  className="flex items-center capitalize">
-              <input id='pets-allowed' name='amenity3' type="checkbox" 
-              className="mr-2 h-5 w-5 cursor-pointer" onChange={(e)=>{
-                setQuery(prev => ({ ...prev, [e.target.name]: e.target.checked? e.target.id: '' }));
-              }}/>
-               Pets Allowed
-            </label>
-          </div>
-     
-        </form>
-      </div>
 
     </div>
   );

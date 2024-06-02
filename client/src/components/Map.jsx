@@ -5,11 +5,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Map = ({ item, single }) => {
-    const data = single ? [item] : item
+    const data = single ? [item] : item;
     const [zoom, setZoom] = useState(single ? 8 : 6);
     const [position, setPosition] = useState([data[0].latitude, data[0].longitude]);
-    // console.log('map')
-    // console.log(data)
 
     const handleMarkerClick = (latitude, longitude) => {
         if(single){
@@ -19,6 +17,7 @@ const Map = ({ item, single }) => {
         }
         setPosition([latitude, longitude]);
     };
+
 
     return (
         <MapContainer key={`${position[0]}-${position[1]}`} center={position} zoom={zoom} scrollWheelZoom={true} className='w-full h-full'>

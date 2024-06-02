@@ -5,9 +5,11 @@ export const singlePageLoader = async({request, params}) => {
     const res = await apiRequest.get(`/posts/${params.id}`)
     return res.data
 }
-export const listsLoader = async({request, params}) => {
-    const res = await apiRequest.get(`/posts`)
-    return res.data
+export const profilePageLoader = async({request, params}) => {
+    const postPromise = apiRequest.get(`/users/profilePosts`)
+    return defer({
+        posts: postPromise,
+    });
 }
 export const listPageLoader = ({request, params}) => {
     const query = request.url.split('?')[1]

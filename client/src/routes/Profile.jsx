@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { Suspense, useContext, useState } from "react";
 import Listings from "../components/Listings";
 import Chats from "../components/Chats";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
 
 const Profile = () => {
   const {user} = useContext(AuthContext)
@@ -59,7 +59,18 @@ const Profile = () => {
         <div className="listings flex-1 h-full custom-scroll overflow-y-auto  rounded-lg">
           <h1 className="text-xl font-bold text-[#0D263B] mb-4 bg-white py-2 px-4 rounded-lg inline-block">Listings</h1>
           <div className="flex-1 pb-3">
-            <Listings listData={listData}/>
+          <Suspense
+        fallback={<p>Loading...</p>}
+        >
+          <Await
+            resolve={listData.posts}
+            errorElement={
+              <p>Error while loading.</p>
+            }
+          >
+            {posts => <Listings listData={posts.data}/>}
+          </Await>
+        </Suspense>
           </div>
         </div>
 

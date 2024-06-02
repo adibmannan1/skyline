@@ -56,7 +56,7 @@ const ListPage = () => {
           <Await
             resolve={listData.posts}
             errorElement={
-              <p>Error while loading.</p>
+              <p>No items listed like this. Refresh the page.</p>
             }
           >
             {posts => (

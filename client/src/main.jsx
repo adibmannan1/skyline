@@ -17,6 +17,7 @@ import { AuthContextProvider } from './context/AuthContext.jsx';
 import Update from './routes/Update.jsx';
 import NewPost from './routes/NewPost.jsx';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders.js';
+import { SocketContext, SocketContextProvider } from './context/SocketContext.jsx';
 
 
 const router = createBrowserRouter([
@@ -71,9 +72,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <SocketContextProvider>
+        <RouterProvider router={router} />
+      </SocketContextProvider>
     </AuthContextProvider>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 )

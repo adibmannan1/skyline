@@ -6,7 +6,7 @@ import { Await, Link, useLoaderData } from "react-router-dom";
 
 const Profile = () => {
   const {user} = useContext(AuthContext)
-  const listData = useLoaderData()
+  const data = useLoaderData()
 
   const [open, setOpen] = useState(false);
   const chatOpener = () => setOpen(true)
@@ -60,17 +60,17 @@ const Profile = () => {
           <h1 className="text-xl font-bold text-[#0D263B] mb-4 bg-white py-2 px-4 rounded-lg inline-block">Listings</h1>
           <div className="flex-1 pb-3">
           <Suspense
-        fallback={<p>Loading...</p>}
-        >
-          <Await
-            resolve={listData.posts}
-            errorElement={
-              <p>Error while loading.</p>
-            }
-          >
-            {posts => <Listings listData={posts.data}/>}
-          </Await>
-        </Suspense>
+            fallback={<p>Loading...</p>}
+            >
+            <Await
+              resolve={data.posts}
+              errorElement={
+                <p>Error while loading.</p>
+              }
+            >
+              {posts => <Listings listData={posts.data}/>}
+            </Await>
+          </Suspense>
           </div>
         </div>
 
@@ -78,7 +78,20 @@ const Profile = () => {
         
         {/* Chats Section (Placeholder) */}
         <div className={`chats ${open ? "bottom-0" : "-bottom-full"} absolute w-full h-full sm:static flex-1 bg-white pb-2 px-4 rounded-lg custom-transition `}>
-          <Chats user={user} chatOpener={chatOpener} chatCloser={chatCloser}/>
+
+        <Suspense
+        fallback={<p>Loading...</p>}
+        >
+          <Await
+            resolve={data.chats}
+            errorElement={
+              <p>Error while loading.</p>
+            }
+          >
+            {chats => <Chats currentUser={user} chats={chats.data} chatOpener={chatOpener} chatCloser={chatCloser}/>}
+          </Await>
+        </Suspense>
+
         </div>
       </div>
     </div>

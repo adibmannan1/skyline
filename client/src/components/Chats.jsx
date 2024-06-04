@@ -1,81 +1,66 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import apiRequest from "../lib/apiRequest"
+import {format} from 'timeago.js'
+import { SocketContext } from "../context/SocketContext";
 
-const Chats = ({user, chatCloser}) => {
-    const [message, setMessage] = useState('');
+const Chats = ({currentUser, chats, chatCloser}) => {
+    const [chat, setChat] = useState();
     const [chatOpen, setChatOpen] = useState(false);
-    const messageList = [
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
-    {
-        username: "John Doe",
-        img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        message: "Lorem ipsum dolor sit amet"
-    },
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [pastMessages, setPastMessages] = useState([]);
+    const {socket} = useContext(SocketContext)
 
-]
+    // console.log(pastMessages)
+    console.log(chat)
+
+    // console.log(chats)
+    
+    const chatOpenHandler = async (index, chat, receiver) => {
+      try{
+        const res = await apiRequest.get(`/chats/${chat.id}`)
+        // console.log(res.data)
+        setPastMessages({
+          messages: res.data.messages,
+          receiver: chat.receiver.id
+        })
+        setActiveIndex(index)
+        setChatOpen(true)
+        setChat({ ...res.data, receiver });
+        await apiRequest.put(`/chats/read/${chat.id}`)
+      }catch(err){
+        console.log(err)
+      }
+    }
+
+    const sendMessage = async (e) => {
+      e.preventDefault()
+
+      const formData = new FormData(e.target)
+      const text = formData.get('text')
+
+      if(!text) return
+      try{
+        const res = await apiRequest.post(`/messages/add/${chat.id}`, {text})
+        setChat((prev) => ({ ...prev, messages: [...prev.messages, res.data] }));
+        e.target.reset()
+        socket.emit('sendMessage', {
+          receiverId: chat.receiver.id,
+          data: res.data
+        })
+      }catch(err){
+        console.log(err)
+      }
+    }
+
+    useEffect(() => {
+      if(!socket) return
+      socket.on('getMessage', (data) => {
+        if(chat.id !== data.chatId) return
+        setPastMessages((prev) => [...prev, data])
+        setChat( prev => ({...prev, messages: [...prev.messages, data]}) )
+      })
+    })
+    
   return (
     
     <div className="relative h-full">
@@ -92,12 +77,12 @@ const Chats = ({user, chatCloser}) => {
 
         <div className="all-chat-container flex flex-col h-full gap-4 overflow-y-scroll custom-scroll">
             {
-              messageList.map((message, index) => (
-                <div className="message-indicator flex w-full items-center cursor-pointer" key={index} onClick={() => setChatOpen(true)}>
-                  <img src={message.img} alt="profile picture" className="w-11 h-11 object-cover rounded-full mr-2"/>
+              chats?.map((chat, index) => (
+                <div className="chat-indicator flex w-full items-center cursor-pointer" key={chat.id} onClick={() => chatOpenHandler(index, chat, chat.receiver.id)}>
+                  <img src={chat.receiver.avatar || "/dummydp.png"} alt="profile picture" className="w-11 h-11 object-cover rounded-full mr-2"/>
                   <div className="texts flex flex-col">
-                    <h1 className="text-black text-lg">{message.username}</h1>
-                    <p>{message.message}</p>
+                    <h1 className="text-black text-lg font-bold">{chat.receiver.username}</h1>
+                    <p className={`${chat.seenBy.includes(currentUser.id) ? 'text-gray-500' : 'text-gray-900 font-semibold'}`}>{chat.lastMessage}</p>
                   </div>
                 </div>
               ))
@@ -108,47 +93,41 @@ const Chats = ({user, chatCloser}) => {
     <div className={`single-chat w-full h-full absolute bg-white top-0 ${chatOpen ? 'right-0' : '-right-[110%]'} pt-3 custom-transition`}>
       <div className="chat-header flex justify-between items-center">
         <div className="user-chat-container flex items-center gap-2">
-          <img src={user.avatar} alt="" className="w-11 h-11 object-cover rounded-full"/>
-          <h1 className="text-xl font-bold text-[#0D263B]">{user.name}</h1>
+          <img src={chats[activeIndex].receiver.avatar || "/dummydp.png"} alt="" className="w-11 h-11 object-cover rounded-full"/>
+          <h1 className="text-xl font-bold text-[#0D263B]">{chats[activeIndex].receiver.username}</h1>
         </div>
           <img src="/exit.png" alt="exit icon" className="w-6 h-6 cursor-pointer"  onClick={() => setChatOpen(false)}/>
       </div>
       
         {/* Chat Messages */}
-      <div className="flex flex-col gap-2 mt-4 chat-mobile-height sm:h-[320px] overflow-y-auto custom-scroll">
-        <p className="message">Previous chat message</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Another chat message</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Previous chat message</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Another chat messa ge</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Previous chat message</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Another chat message</p>
-        <p className="message own">Your chat message</p>
-        <p className="message">Previous chat message</p>
+      <div className="flex flex-col gap-2 mt-4 chat-mobile-height sm:h-[315px] overflow-y-auto custom-scroll">
+
+        {pastMessages.messages?.map((message, index) => (
+          <div key={message.id} className={`${message.senderId === currentUser.id ? 'message-div' : 'own-message-div'} `}>
+            <p className={`message ${message.userId === currentUser.id ? 'own-message' : ''}`}>{message.text}</p>
+            <p className={`hours ${message.userId === currentUser.id ? 'ml-auto' : 'mr-auto'}`}>{format(message.createdAt)}</p>
+          </div>
+        ))}
+        <div className="message-div">
+          <p className="message">Previous chat message</p>
+        </div>
+
       </div>
       
         {/* Bottom Section for Typing and Sending Messages */}
-      <div className="mt-4 flex items-center">
-        <input
-          type="text"
-          className="flex-1 px-3 py-2 bg-gray-100 rounded focus:outline-none text-[#0061E0] font-bold placeholder:font-medium placeholder:text-gray-400"
-          placeholder={`Talk to ${user.name}`}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+      <form className="mt-4 flex items-center" onSubmit={sendMessage}>
+        <textarea
+        name="text"
+          className="h-[40px] custom-scroll flex-1 px-3 py-2 bg-gray-100 rounded focus:outline-none text-[#0061E0] font-bold placeholder:font-medium placeholder:text-gray-400"
+          placeholder={`Talk to ${currentUser.name}`}
         />
-        <button
+        <button type="submit"
           className="ml-3 px-4 py-2 bg-[#0061E0] rounded text-white hover:bg-[#0e305d] ease-in-out duration-200"
-          onClick={() => {
-            setMessage('');
-          }}
+          
         >
           <img src="/send2.png" alt="send icon" className="w-5 h-5"/>
         </button>
-      </div>
+      </form>
     </div>
   </div>
   )

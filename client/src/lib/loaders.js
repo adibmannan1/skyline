@@ -7,8 +7,10 @@ export const singlePageLoader = async({request, params}) => {
 }
 export const profilePageLoader = async({request, params}) => {
     const postPromise = apiRequest.get(`/users/profilePosts`)
+    const chatPromise = apiRequest.get(`/chats`)
     return defer({
         posts: postPromise,
+        chats: chatPromise
     });
 }
 export const listPageLoader = ({request, params}) => {

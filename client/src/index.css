@@ -90,12 +90,14 @@ input:focus::placeholder {
   }
 
 
+  .message-div {
+    max-width: 70%;
+  }
   .message {
     padding: 10px;
     border-radius: 0px 20px 0px 20px;
     background-color: #F3F4F6;
     color: #1F2937;
-    max-width: 70%;
     font-weight: bold;
     color: gray
   }
@@ -108,11 +110,22 @@ input:focus::placeholder {
     color: gray
   }
   
-  .own {
+  .own-message {
     border-radius: 20px 0px 20px 0px;
-    align-self: flex-end;
     background-color: #c5e3ff;
     color: #347ad6;
+    width: 71%;
+    margin-left: auto;
+  }
+  .own-message-div {
+    width: 100%;
+  }
+  .hours{
+    margin-top: 5px;
+    font-weight: 500;
+    color: #949494;
+    width: fit-content;
+
   }
   .chat-mobile-height{
     height: calc(100% - 160px);

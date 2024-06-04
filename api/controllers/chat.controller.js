@@ -10,63 +10,95 @@ export const getChats = async(req, res) => {
                 }
             }
         })
+
+        for(const chat of chats){
+            const receiverId = chat.userIds.find(id => id !== tokenId)
+            const receiver = await prisma.user.findUnique({
+                where: {
+                    id: receiverId
+                },
+                select: {
+                    id: true,
+                    username: true,
+                    avatar: true
+                }
+            })
+            chat.receiver = receiver
+        }
         res.send(chats)
+        // console.log(chats)
     }catch(err){
         console.log(err)
         res.status(500).send('Failed to get chats')
     }
 }
 export const getChat = async(req, res) => {
-    const id = req.params.id
+    const tokenId = req.userId
+
     try{
-        const user = await prisma.chat.findUnique({
+        const chat = await prisma.chat.findUnique({
             where: {
-                id
+                id: req.params.id,
+                userIds: {
+                    hasSome: [tokenId]
+                }
+            },
+            include: {
+                messages: {
+                    orderBy: {
+                        createdAt: 'asc'
+                    }
+                }
             }
         })
-        res.send(user)
+
+        await prisma.chat.update({
+            where: {
+                id: req.params.id
+            },
+            data: {
+                seenBy: {
+                    push: [tokenId]
+                }
+            }
+        })
+        res.send(chat)
     }catch(err){
         console.log(err)
         res.status(500).send('Failed to get chats')
     }
 }
-export const addChat = async(req, res) => {
-    const id = req.params.id
+export const addChat = async (req, res) => {
+    const tokenId = req.userId;
+    try {
+      const newChat = await prisma.chat.create({
+        data: {
+          userIds: [tokenId, req.body.receiverId],
+        },
+      });
+      res.status(200).json(newChat);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Failed to add chat!" });
+    }
+  };
+export const readChat = async(req, res) => {
     const tokenId = req.userId
-    const body = req.body
-    const {password, avatar, ...userData} = body
-    let updatedPassword = null
     try{
-        if(id !== tokenId) res.status(403).send('Unauthorized')
-
-        if(password) updatedPassword = await bcrypt.hash(password, 10)
-
-        const updatedUser = await prisma.user.update({
-            where: {id},
+        const chat = await prisma.chat.update({
+            where: {
+                id: req.params.id,
+                userIds: {
+                    hasSome: [tokenId]
+                }
+            },
             data: {
-                ...userData,
-                ...(updatedPassword && {password: updatedPassword}),
-                ...(avatar && {avatar})
+                seenBy: {
+                    push: [tokenId]
+                }
             }
         })
-        res.send(updatedUser)
-    }catch(err){
-        console.log(err)
-        res.status(500).send('Could not update chat')
-    }
-}
-export const readChat = async(req, res) => {
-    const id = req.params.id
-    const tokenId = req.userId
-    try{
-        const user = await prisma.chat.findUnique({where: {id}})
-        if(!user) res.status(404).send('User does not exist.')
-
-        if(id !== tokenId) res.status(403).send('Unauthorized')
-        await prisma.chat.delete({
-            where: {id}
-        })
-        res.send('deleted')
+        res.send(chat)
     }catch(err){
         console.log(err)
         res.status(500).send('Failed to delete chat.')

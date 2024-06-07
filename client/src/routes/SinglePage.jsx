@@ -23,12 +23,10 @@ const SinglePage = () => {
         postId: post.id
       })
       setSaved(prev => !prev)
-      console.log('it worked')
     }catch(err){
       console.log(err)
     }
    
-      // post.isSaved = false
    
 
   }

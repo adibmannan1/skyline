@@ -79,22 +79,22 @@ export const savePost = async (req, res) => {
                 ]
             }
         });
-        if(savedPost){
+        if (savedPost) {
             await prisma.savedPost.delete({
-                where: {
-                    id:savedPost.id
-                }
-            })
-            res.send('post removed from favorites')
-        }else{
+              where: {
+                id: savedPost.id,
+              },
+            });
+            res.status(200).json({ message: "Post removed from saved list" });
+          } else {
             await prisma.savedPost.create({
-                data: {
-                    userId: tokenId,
-                    postId: postId
-                }
-            })
-            res.send('post added to favorites')
-        }
+              data: {
+                userId: tokenId,
+                postId,
+              },
+            });
+            res.status(200).json({ message: "Post saved" });
+          }
     }catch(err){
         console.log(err)
         res.status(500).send('Failed to delete user.')
@@ -109,7 +109,19 @@ export const profilePosts = async(req, res) => {
                 userId: tokenId
             }
         });
-        res.send(userPosts);
+        const saved = await prisma.savedPost.findMany({
+            where: {
+                userId: tokenId
+            },
+            include: {
+                post: true
+            }
+        });
+        const savedPosts = saved.map(item => item.post);
+        res.json({
+            userPosts,
+            savedPosts
+        });
     } catch (err) {
         console.log(err);
         res.status(500).send("Failed to get profile posts");

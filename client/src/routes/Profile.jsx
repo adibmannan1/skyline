@@ -1,6 +1,5 @@
 import { Suspense, useContext, useState } from "react";
 import Listings from "../components/Listings";
-import Chats from "../components/Chats";
 import { AuthContext } from "../context/AuthContext";
 import { Await, Link, useLoaderData } from "react-router-dom";
 
@@ -65,10 +64,30 @@ const Profile = () => {
             <Await
               resolve={data.posts}
               errorElement={
-                <p>Error while loading.</p>
+                <p>No items listed</p>
               }
             >
-              {posts => <Listings listData={posts.data}/>}
+              {posts => <Listings listData={posts.data.userPosts}/>}
+            </Await>
+          </Suspense>
+          </div>
+        </div>
+
+
+        {/* Saved Lists Section */}
+        <div className="listings flex-1 h-full custom-scroll overflow-y-auto  rounded-lg">
+          <h1 className="text-xl font-bold text-[#0D263B] mb-4 bg-white py-2 px-4 rounded-lg inline-block">Saved Lists</h1>
+          <div className="flex-1 pb-3">
+          <Suspense
+            fallback={<p>Loading...</p>}
+            >
+            <Await
+              resolve={data.posts}
+              errorElement={
+                <p>No items listed</p>
+              }
+            >
+              {posts => <Listings listData={posts.data.savedPosts}/>}
             </Await>
           </Suspense>
           </div>
@@ -76,23 +95,6 @@ const Profile = () => {
 
 
         
-        {/* Chats Section (Placeholder) */}
-        <div className={`chats ${open ? "bottom-0" : "-bottom-full"} absolute w-full h-full sm:static flex-1 bg-white pb-2 px-4 rounded-lg custom-transition `}>
-
-        <Suspense
-        fallback={<p>Loading...</p>}
-        >
-          <Await
-            resolve={data.chats}
-            errorElement={
-              <p>Error while loading.</p>
-            }
-          >
-            {chats => <Chats currentUser={user} chats={chats.data} chatOpener={chatOpener} chatCloser={chatCloser}/>}
-          </Await>
-        </Suspense>
-
-        </div>
       </div>
     </div>
   );

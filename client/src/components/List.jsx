@@ -1,8 +1,31 @@
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import apiRequest from "../lib/apiRequest";
 
 const List = ({ property }) => {
   const { id, title, images, bedroom, bathroom, price, address } = property;
+  const {user} = useContext(AuthContext)
+  const navigate = useNavigate()
+  const [saved, setSaved] = useState(property.isSaved)
 
+
+
+  const handleSave = async() => {
+    if(!user){
+      navigate('/login')
+    }
+    
+    try{
+      await apiRequest.post('/users/save', {
+        postId: id
+      })
+      setSaved(prev => !prev)
+      window.location.reload();
+    }catch(err){
+      console.log(err)
+    }
+  }
   return (
     <div className="bg-white rounded-lg p-2">
       <Link to={`/list/${id}`}><img src={images[0]} alt={title} className="w-full h-36 object-cover rounded cursor-pointer" /></Link>
@@ -23,10 +46,11 @@ const List = ({ property }) => {
         </div>
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-bold text-[#0061E0]">€{price}</h3>
-          <div className="cursor-pointer flex gap-4">
-            <img src="/save.svg" alt="" className="w-5 h-5 "/>
-            <img src="/chat.svg" alt="" className="w-5 h-5"/>
-          </div>
+            {
+              saved
+              ? <img src="/saved.svg" alt="" className="w-5 h-5 cursor-pointer" onClick={handleSave}/>
+              : <img src="/save.svg" alt="" className="w-5 h-5 cursor-pointer" onClick={handleSave}/>
+            }
         </div>
         </div>
       </div>

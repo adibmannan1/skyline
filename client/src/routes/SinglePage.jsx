@@ -26,9 +26,6 @@ const SinglePage = () => {
     }catch(err){
       console.log(err)
     }
-   
-   
-
   }
 
   return (

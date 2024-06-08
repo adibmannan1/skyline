@@ -21,14 +21,9 @@ const Navbar = () => {
             icon: "/listings.png"
         },
         {
-            name: "Agents",
-            link: "/agents",
+            name: "Profile",
+            link: "/profile",
             icon: "/agent.png"
-        },
-        {
-            name: "Contact",
-            link: "/contact",
-            icon: "/contact.png"
         }
     ]
 
@@ -63,11 +58,7 @@ const Navbar = () => {
         <div className="authorization sm:flex gap-5 text-xs md:text-sm hidden">
             {user? 
                 <Link to={'/profile'} className="user flex items-center gap-5">
-                    <div className="relative">
-                        <img src={user.avatar || '/dummydp.png'} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
-                        <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">
-                        3</div>
-                    </div>
+                    <img src={user.avatar || '/dummydp.png'} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
                     <button onClick={logOut} className="bg-[#0061E0] px-5 py-2 text-white hover:bg-transparent hover:text-[#0061E0] border-[3px] border-[#0061E0] ease-in-out duration-200 cursor-pointer">Log Out</button>
                 </Link>:
                 <div className="flex items-center gap-5">  
@@ -112,9 +103,8 @@ const Navbar = () => {
             
             <div className="authorization flex w-[90%] mx-auto gap-5 mt-10 text-[#dcecff]">
                 {user? <>
-                <Link to={'/profile'} className="user flex items-center gap-5 relative" onClick={menuCloser}>
+                <Link to={'/profile'} className="user flex items-center gap-5" onClick={menuCloser}>
                 
-                    <div className="notification absolute -top-2 -right-2 bg-[#ff416a] w-5 h-5 flex items-center justify-center p-3 rounded-full text-white">3</div>
                         <img src={user.avatar || '/dummydp.png'} alt="user image" className="w-11 h-11 object-cover rounded-full"/>
                         </Link>
                     <button onClick={logOut} className="px-5 py-2 text-white border-[3px] border-white rounded ease-in-out duration-200 cursor-pointer">Log Out</button>

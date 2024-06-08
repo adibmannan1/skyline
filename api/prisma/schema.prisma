@@ -11,6 +11,7 @@ model Post {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
   images    String[]
+  isSaved   Boolean @default(false)
   bedroom   Int
   bathroom  Int
   price     Int

@@ -85,6 +85,14 @@ export const savePost = async (req, res) => {
                 id: savedPost.id,
               },
             });
+            await prisma.post.update({
+              where: {
+                id: postId,
+              },
+              data: {
+                isSaved: false,
+            }
+            })
             res.status(200).json({ message: "Post removed from saved list" });
           } else {
             await prisma.savedPost.create({
@@ -93,6 +101,14 @@ export const savePost = async (req, res) => {
                 postId,
               },
             });
+            await prisma.post.update({
+                where: {
+                  id: postId,
+                },
+                data: {
+                  isSaved: true,
+              }})
+
             res.status(200).json({ message: "Post saved" });
           }
     }catch(err){

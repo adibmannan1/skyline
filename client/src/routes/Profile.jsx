@@ -1,20 +1,15 @@
 import { Suspense, useContext, useState } from "react";
 import Listings from "../components/Listings";
 import { AuthContext } from "../context/AuthContext";
-import { Await, Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import apiRequest from "../lib/apiRequest";
 
 const Profile = () => {
   const {user} = useContext(AuthContext)
   const data = useLoaderData()
 
-  const [open, setOpen] = useState(false);
-  const chatOpener = () => setOpen(true)
-  const chatCloser = () => setOpen(false)
   return (
     <div className="flex flex-col gap-10 hero pt-5 overflow-hidden relative">
-      <div className="chat-opener absolute bottom-5 right-3 bg-[#0061E0] p-5 rounded-full sm:hidden">
-        <img src="/message-white.png" alt="" className="w-7 h-7 cursor-pointer" onClick={chatOpener}/>
-      </div>
 
       {/* User Info Section */}
       <div className="user-info flex flex-col gap-6 md:gap-0 md:flex-row justify-between items-start md:items-center">
@@ -92,9 +87,6 @@ const Profile = () => {
           </Suspense>
           </div>
         </div>
-
-
-        
       </div>
     </div>
   );

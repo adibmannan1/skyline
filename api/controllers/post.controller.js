@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken"
+const secret = "Ad13S3CR3T"
 
 export const getPosts = async (req, res) => {
     const query = req.query;
@@ -44,7 +45,7 @@ export const getPost = async (req, res) => {
 
         const token = req.cookies?.token
         if (token) {
-            jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
+            jwt.verify(token, secret, async (err, payload) => {
                 if (!err) {
                 const saved = await prisma.savedPost.findUnique({
                     where: {

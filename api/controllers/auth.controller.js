@@ -3,6 +3,7 @@ import prisma from "../lib/prisma.js"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 dotenv.config()
+const secret = "Ad13S3CR3T"
 
 export const register = async(req, res) => {
     try{
@@ -29,7 +30,7 @@ export const register = async(req, res) => {
         const token = jwt.sign({
             id: user.id,
             isAdmin: true
-        }, process.env.JWT_SECRET_KEY, { expiresIn: expiresIn });
+        }, secret, { expiresIn: expiresIn });
 
         const {password: userPassword, ...finalUser} = user
         res.cookie('token', token, {
@@ -60,7 +61,7 @@ export const login = async(req, res) => {
             const token = jwt.sign({
                 id: user.id,
                 isAdmin: true
-            }, process.env.JWT_SECRET_KEY, { expiresIn: expiresIn });
+            }, secret, { expiresIn: expiresIn });
 
             
             const {password: userPassword, ...finalUser} = user

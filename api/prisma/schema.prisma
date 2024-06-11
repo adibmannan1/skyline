@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://adibmannan1:360adib360@skyline.e0vwpsh.mongodb.net/estate?retryWrites=true&w=majority&appName=skyline"
 }
 
 model Post {

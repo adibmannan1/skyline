@@ -12,7 +12,6 @@ const ListPage = () => {
   const menuCloser = () => setOpen(false)
 
   const listData = useLoaderData();
-  console.log(listData)
 
 
   return (

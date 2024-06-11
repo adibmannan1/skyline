@@ -12,7 +12,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
   // origin: process.env.CLIENT_URL, 
-  origin: ["https://skyline-flame.vercel.app", process.env.CLIENT_URL], 
+  origin: ["https://skyline-estates.vercel.app/", process.env.CLIENT_URL], 
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }))

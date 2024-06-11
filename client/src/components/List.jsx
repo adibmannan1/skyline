@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import apiRequest from "../lib/apiRequest";
 
@@ -21,7 +21,7 @@ const List = ({ property }) => {
         postId: id
       })
       setSaved(prev => !prev)
-      window.location.reload();
+      // window.location.reload();
     }catch(err){
       console.log(err)
     }
